@@ -1,0 +1,16 @@
+{
+  "name": "phase-1-project-coincube",
+  "version": "1.0.0",
+  "description": "This project will map cryptocurrency data from an external API to a canvas containing a three.js 3D animation.",
+  "main": "index.js",
+  "scripts": {
+     "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.3.5"
+  }
+}
