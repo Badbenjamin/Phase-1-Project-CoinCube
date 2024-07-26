@@ -11,12 +11,12 @@ body {
 }
 
 .left{
-    width: 20%;
+    width: 25%;
   float: left;
   height: 100px;
 }
 .middle{
-  width: 66.66%;
+  width: 60%;
   float: left;
   height: 100px;
 }
@@ -31,3 +31,17 @@ body {
   text-align: center;
 }
 
+#coin-list {
+    overflow-y: auto;
+    height: 350px;
+    cursor: pointer;
+}
+
+#change-color {
+    color:goldenrod;
+    font-size: 20px;
+}
+
+#coin-data{
+    text-align: center;
+}

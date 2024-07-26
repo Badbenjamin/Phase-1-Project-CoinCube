@@ -71,7 +71,9 @@ fetch("https://api.coincap.io/v2/assets")
     if (response.ok) {
         response.json().then(coinData => {
             // console.log(coinData.data)
-            displayCoinData(coinData.data)
+            createCoinData(coinData.data)
+            // Display bitcoin as default
+            displayCoinData(coinData.data[0])
         })
     } else {
         // maybe get this error to say something more specific to error
@@ -81,15 +83,50 @@ fetch("https://api.coincap.io/v2/assets")
 
 // FUNCTIONS
 
-function addCoinsToList(cryptocurrency){
+function populateCoinList(cryptocurrency){
     const coinListItem = document.createElement('li')
     coinListItem.textContent = `${cryptocurrency.symbol}: ${cryptocurrency.name}`
     coinList.appendChild(coinListItem)
+
+
+    // Hover to change color of coinListItem
+    coinListItem.addEventListener("mouseover", (e) => {
+        coinListItem.id = 'change-color'
+    })
+    coinListItem.addEventListener("mouseleave", () => {
+        coinListItem.id = ""
+    })
+
+    // Click to add to MY COINS and DISPLAY COIN DATA
+    coinListItem.addEventListener("click", () => {
+        displayCoinData(cryptocurrency)
+    }) 
+   
 }
 
-function displayCoinData (cryptocurrenciesArray){
+function createCoinData (cryptocurrenciesArray){
     cryptocurrenciesArray.forEach((cryptocurrency) => {
-        console.log(cryptocurrency)
-        addCoinsToList(cryptocurrency)
+        populateCoinList(cryptocurrency)
     })
+}
+
+function displayCoinData (cryptocurrency) {
+    console.log(cryptocurrency)
+    const cryptoName = document.getElementById('name')
+    const cryptoSymbol = document.getElementById('symbol')
+    const cryptoPrice = document.getElementById('price')
+    const crypto24Hr = document.getElementById('24-hour-change')
+
+    const coinPrice = Number(cryptocurrency.priceUsd)
+    const coin24Hr = Number(cryptocurrency.changePercent24Hr)
+
+    function roundToTwoDecimalPlace (number) {
+        return (Math.round(number * 10 ** 2) / 10 **2);
+    }
+
+    cryptoName.textContent = `NAME: ${cryptocurrency.name}`
+    cryptoSymbol.textContent = `SYMBOL: ${cryptocurrency.symbol}`
+    cryptoPrice.textContent = `PRICE USD: $${roundToTwoDecimalPlace(coinPrice)}`
+    crypto24Hr.textContent = `24Hr CHANGE: ${roundToTwoDecimalPlace(coin24Hr)}%`
+
 }
