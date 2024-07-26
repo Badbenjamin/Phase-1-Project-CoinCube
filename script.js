@@ -81,6 +81,7 @@ fetch("https://api.coincap.io/v2/assets")
     }
 })
 
+
 // FUNCTIONS
 
 function populateCoinList(cryptocurrency){
@@ -99,6 +100,24 @@ function populateCoinList(cryptocurrency){
 
     // Click to add to MY COINS and DISPLAY COIN DATA
     coinListItem.addEventListener("click", () => {
+        // second API call for coin price history
+        fetch(`https://api.coincap.io/v2/assets/${cryptocurrency.id}/history?interval=d1`)
+        .then(response => response.json())
+        .then((coinHistory) => {
+            // access last two days of coin history
+            const coinHistoryArray = coinHistory.data
+            const coinPriceTodayArrayLocation = coinHistoryArray.length -1
+            const coinPriceYesterdayArrayLocation = coinHistoryArray.length -2
+            // 
+            const coinPriceToday = coinHistoryArray[coinPriceTodayArrayLocation].priceUsd;
+            const coinPriceYesterday = coinHistoryArray[coinPriceYesterdayArrayLocation].priceUsd;
+            const coinChange = coinPriceToday - coinPriceYesterday;
+            console.log("today",coinPriceToday)
+            console.log("yesterday",coinPriceYesterday)
+            console.log("change", coinChange)
+
+        })
+
         displayCoinData(cryptocurrency)
     }) 
    
