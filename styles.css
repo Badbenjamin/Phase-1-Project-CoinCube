@@ -1,0 +1,32 @@
+body {
+    background-color:rgb(142, 255, 152);
+    width: 100%;
+    float: left;
+}
+
+
+#main-header {
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.left{
+    width: 20%;
+  float: left;
+  height: 100px;
+}
+.middle{
+  width: 66.66%;
+  float: left;
+  height: 100px;
+}
+.right {
+  width: 12%;
+  float: left;
+  height: 100px;
+}
+
+.webgl {
+    padding-top: 25px;
+  text-align: center;
+}
