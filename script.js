@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { Wireframe } from 'three/examples/jsm/Addons.js';
 
 // SCENE
 const scene = new THREE.Scene()
@@ -57,3 +56,13 @@ const animate = () => {
     window.requestAnimationFrame(animate)
 }
 animate()
+
+// get form input
+const dropDown = document.getElementById("dropdown-content")
+// console.log(dropDown.value)
+
+
+dropDown.addEventListener("submit", (event) => {
+    console.log(event)
+    console.log(dropdown.value);
+})
