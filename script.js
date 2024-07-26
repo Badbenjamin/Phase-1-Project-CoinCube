@@ -57,12 +57,39 @@ const animate = () => {
 }
 animate()
 
-// get form input
-const dropDown = document.getElementById("dropdown-content")
-// console.log(dropDown.value)
+// API and DOM 
 
+// Choose coin. Filtered list of coins appears here
+const coinList = document.getElementById("coin-list")
 
-dropDown.addEventListener("submit", (event) => {
-    console.log(event)
-    console.log(dropdown.value);
+// Select Element
+const coinFilter = document.getElementById("dropdown-content")
+
+// API call to get coin data
+fetch("https://api.coincap.io/v2/assets")
+.then(response => {
+    if (response.ok) {
+        response.json().then(coinData => {
+            // console.log(coinData.data)
+            displayCoinData(coinData.data)
+        })
+    } else {
+        // maybe get this error to say something more specific to error
+        alert("ERROR")
+    }
 })
+
+// FUNCTIONS
+
+function addCoinsToList(cryptocurrency){
+    const coinListItem = document.createElement('li')
+    coinListItem.textContent = `${cryptocurrency.symbol}: ${cryptocurrency.name}`
+    coinList.appendChild(coinListItem)
+}
+
+function displayCoinData (cryptocurrenciesArray){
+    cryptocurrenciesArray.forEach((cryptocurrency) => {
+        console.log(cryptocurrency)
+        addCoinsToList(cryptocurrency)
+    })
+}

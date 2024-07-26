@@ -10,11 +10,18 @@
     <h1 id="main-header">CryptoCube</h1>
     <div class="left">
         <h2>CHOOSE COIN</h2>
-        <button class="drop-button">TRACK COINS</button>
         <select id="dropdown-content">
-            <option value="option 1">Option 1</option>
-            <option value="option 2">Option 2</option>
+            <option value="all-coins">ALL COINS</option>
+            <option value="top-ten">1-10</option>
+            <option value="1-50">1-50</option>
+            <option value="50-100">50-100</option>
         </select>
+
+        <br/>
+
+        <ul id="coin-list">
+            <!-- list coins here -->
+        </ul>
     </div>
     <div class="middle">
         <canvas class="webgl"></canvas>
