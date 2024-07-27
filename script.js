@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 
 // GLOBAL ANIMATION VARIABLES
-let cubeColor = { color: '' };
-let cubeSpin = 1;
+let cubeSpinMultiplier = 1;
 
 // SCENE
 const scene = new THREE.Scene()
@@ -27,10 +26,10 @@ const sizes = {
 
 // CAMERA
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height)
 camera.position.z = 3
 scene.add(camera)
-camera.lookAt(mesh.position)
+
 
 // CANVAS
 const canvas = document.querySelector("canvas.webgl")
@@ -52,7 +51,11 @@ const animate = () => {
     const elapsedTime = clock.getElapsedTime();
 
     // Update objects
-    mesh.rotation.y = elapsedTime
+    mesh.rotation.y = elapsedTime * cubeSpinMultiplier;
+
+    camera.position.x = Math.sin(elapsedTime) / 2
+    camera.position.y = Math.sin(elapsedTime) / 2
+    camera.lookAt(mesh.position)
 
     // Render
     renderer.render(scene, camera)
@@ -143,15 +146,21 @@ function displayCoinData(cryptocurrency) {
     cryptoPrice.textContent = `PRICE USD: $${roundToTwoDecimalPlace(coinPrice)}`
     crypto24Hr.textContent = `24Hr CHANGE: ${roundToTwoDecimalPlace(coin24Hr)}%`
 
-    // CHANGE CUBE COLOR AND ROTATION
+    // CHANGE CUBE COLOR 
 
     if (coin24Hr > 0) {
-        material.color.setColorName("green")
+        material.color.setColorName("chartreuse")
     } else {
         material.color.setColorName("red")
     }
-    console.log("final color", material.color)
-
+    console.log(coin24Hr)
+    // CHANGE CUBE ROTATION SPEED
+    if (coin24Hr >= 0) {
+        cubeSpinMultiplier = coin24Hr;
+    } else {
+        cubeSpinMultiplier = coin24Hr;
+    }
+    console.log(cubeSpinMultiplier)
 }
 
 // DISPLAY PRICE HISTORY, NEEDS WORK
