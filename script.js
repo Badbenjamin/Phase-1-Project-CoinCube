@@ -8,7 +8,7 @@ const scene = new THREE.Scene()
 
 // CUBE
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: "white" })
+const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 200 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 console.log("first color", material.color)
@@ -16,6 +16,17 @@ console.log("first color", material.color)
 // TRANSFORMS
 // mesh.rotation.x = Math.PI * 0.25
 // mesh.rotation.y = Math.PI * 0.25
+
+// LIGHTS
+const directionalLight1 = new THREE.DirectionalLight('white', 4)
+directionalLight1.position.z = 3
+directionalLight1.position.x = 1
+scene.add(directionalLight1)
+
+const directionalLight2 = new THREE.DirectionalLight('palegoldenrod', 4)
+directionalLight2.position.z = 3
+directionalLight2.position.x = -2
+scene.add(directionalLight2)
 
 
 // SIZES
