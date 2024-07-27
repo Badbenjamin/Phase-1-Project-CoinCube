@@ -1,5 +1,5 @@
 body {
-    background-color:rgb(64, 64, 64);
+    background-color:rgb(101, 101, 101);
     width: 100%;
     float: left;
 }
@@ -7,7 +7,7 @@ body {
 
 #main-header {
     text-align: center;
-    color: rgb(236, 222, 67);
+    color: rgb(220, 171, 46);
 }
 
 .left{

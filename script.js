@@ -105,17 +105,19 @@ function populateCoinList(cryptocurrency){
         .then(response => response.json())
         .then((coinHistory) => {
             // access last two days of coin history
+            // assign array.length to a variable, reference variable instead of calling.length
             const coinHistoryArray = coinHistory.data
+            // use pop to do this
             const coinPriceTodayArrayLocation = coinHistoryArray.length -1
             const coinPriceYesterdayArrayLocation = coinHistoryArray.length -2
             // 
             const coinPriceToday = coinHistoryArray[coinPriceTodayArrayLocation].priceUsd;
             const coinPriceYesterday = coinHistoryArray[coinPriceYesterdayArrayLocation].priceUsd;
             const coinChange = coinPriceToday - coinPriceYesterday;
-            console.log("today",coinPriceToday)
-            console.log("yesterday",coinPriceYesterday)
-            console.log("change", coinChange)
-
+            // console.log("today",coinPriceToday)
+            // console.log("yesterday",coinPriceYesterday)
+            // console.log("change", coinChange)
+            displayCoinTrend(coinChange)
         })
 
         displayCoinData(cryptocurrency)
@@ -148,4 +150,9 @@ function displayCoinData (cryptocurrency) {
     cryptoPrice.textContent = `PRICE USD: $${roundToTwoDecimalPlace(coinPrice)}`
     crypto24Hr.textContent = `24Hr CHANGE: ${roundToTwoDecimalPlace(coin24Hr)}%`
 
+}
+
+// LEFT OFF HERE ON FRIDAY
+function displayCoinTrend (coinChange) {
+    console.log(coinChange)
 }
