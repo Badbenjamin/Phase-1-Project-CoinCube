@@ -88,7 +88,9 @@ const trackCoinButton = document.getElementById('track-coin-button')
 
 // TRACK COINS COIN CARD
 const coinCardList = document.getElementById("cards-go-here")
-console.log(coinCardList)
+
+// DISPLAYED CRYPTO variable, 
+let displayedCrypto;
 
 // GLOBAL API STORAGE
 let coinDataArray = [];
@@ -121,7 +123,7 @@ function populateCoinList(cryptocurrency) {
 
 
     // Hover to change color of coinListItem
-    coinListItem.addEventListener("mouseover", (e) => {
+    coinListItem.addEventListener("mouseover", () => {
         coinListItem.id = 'change-color'
     })
     coinListItem.addEventListener("mouseleave", () => {
@@ -175,30 +177,29 @@ function displayCoinData(cryptocurrency) {
     } else {
         cubeSpinMultiplier = coin24Hr;
     }
-    console.log("CC", cryptocurrency)
-    // TRACK COIN 
+    displayedCrypto = cryptocurrency;
+}
+
+// TRACK COIN 
+
+trackCoinButton.addEventListener("click", () => {
+    addCoinToList(displayedCrypto)
+})
 
 
-    // add to tracked coin list
-    function addCoinToList(cryptocurrency) {
+// add to tracked coin list
+function addCoinToList(cryptocurrency) {
 
-        const newCard = document.createElement('div')
-        console.log(newCard)
+    const newCard = document.createElement('div')
 
-        newCard.innerHTML =
-            `<div class="tracked-coin-card" >
-            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
-            <h4 class="tracked-coin-price">${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
+    newCard.innerHTML =
+        `<div class="tracked-coin-card" >
+            <h4 class="tracked-coin-symbol" >SYMBOL: ${cryptocurrency.symbol}</h4>
+            <h4 class="tracked-coin-price">$${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
             <button class="remove">REMOVE</button>
         </div >`
 
-        coinCardList.appendChild(newCard)
-        console.log(newCard)
-    }
-
-    trackCoinButton.addEventListener("click", () => {
-        addCoinToList(cryptocurrency)
-    })
+    coinCardList.appendChild(newCard)
 }
 
 
