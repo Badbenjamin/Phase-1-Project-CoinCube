@@ -194,12 +194,17 @@ function addCoinToList(cryptocurrency) {
 
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
-            <h4 class="tracked-coin-symbol" >SYMBOL: ${cryptocurrency.symbol}</h4>
+            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
             <h4 class="tracked-coin-price">$${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
-            <button class="remove">REMOVE</button>
+            <button class="remove-button">REMOVE</button>
         </div >`
+    const removeButton = newCard.querySelector('.remove-button')
+    removeButton.addEventListener("click", () => {
+        newCard.remove()
+    })
 
     coinCardList.appendChild(newCard)
 }
+
 
 
