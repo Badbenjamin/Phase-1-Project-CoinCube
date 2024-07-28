@@ -203,6 +203,10 @@ function addCoinToList(cryptocurrency) {
         newCard.remove()
     })
 
+    newCard.addEventListener("click", () => {
+        displayCoinData(cryptocurrency)
+    })
+
     coinCardList.appendChild(newCard)
 }
 
