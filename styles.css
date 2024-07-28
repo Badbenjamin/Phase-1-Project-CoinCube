@@ -51,14 +51,12 @@ body {
 #coin-data {
   background-color: goldenrod;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+  padding: 1px 16px;
 }
 
-.coin-card {
+.tracked-coin-card {
   text-align: left;
   background-color: goldenrod;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
-}
-
-.container {
   padding: 2px 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
 }

@@ -81,21 +81,29 @@ animate()
 const coinList = document.getElementById("coin-list")
 
 // Select Element
-const coinFilter = document.getElementById("dropdown-content")
+// const coinFilter = document.getElementById("dropdown-content")
+
+// TRACK COIN BUTTON
+const trackCoinButton = document.getElementById('track-coin-button')
 
 // TRACK COINS COIN CARD
-const coinCard = document.getElementById("coin-card")
-console.log(coinCard)
+const coinCardList = document.getElementById("cards-go-here")
+console.log(coinCardList)
+
+// GLOBAL API STORAGE
+let coinDataArray = [];
 
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
         if (response.ok) {
             response.json().then(coinData => {
+                // CREATE GLOBAL ARRAY FOR STORAGE
+                coinDataArray = [...coinData.data]
                 // console.log(coinData.data)
-                createCoinData(coinData.data)
+                createCoinData(coinDataArray)
                 // Display bitcoin as default
-                displayCoinData(coinData.data[0])
+                displayCoinData(coinDataArray[0])
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -122,23 +130,17 @@ function populateCoinList(cryptocurrency) {
 
     // Click to add to MY COINS and DISPLAY COIN DATA
     coinListItem.addEventListener("click", () => {
-        // second API call for coin price history, NEEDS WORK
-        // Maybe get price from 24hrs ago by hour?
-        // fetch(`https://api.coincap.io/v2/assets/${cryptocurrency.id}/history?interval=d1`)
-        //     .then(response => response.json())
-        //     .then((coinHistory) => {
-        //         displayCoinTrend(coinHistory)
-        //     })
-
         displayCoinData(cryptocurrency)
     })
 
 }
 
+// rounds crypto prices
 function roundToTwoDecimalPlace(number) {
     return (Math.round(number * 10 ** 2) / 10 ** 2);
 }
 
+// creates list of coins
 function createCoinData(cryptocurrenciesArray) {
     cryptocurrenciesArray.forEach((cryptocurrency) => {
         populateCoinList(cryptocurrency)
@@ -173,28 +175,30 @@ function displayCoinData(cryptocurrency) {
     } else {
         cubeSpinMultiplier = coin24Hr;
     }
+    console.log("CC", cryptocurrency)
+    // TRACK COIN 
+
+
+    // add to tracked coin list
+    function addCoinToList(cryptocurrency) {
+
+        const newCard = document.createElement('div')
+        console.log(newCard)
+
+        newCard.innerHTML =
+            `<div class="tracked-coin-card" >
+            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
+            <h4 class="tracked-coin-price">${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
+            <button class="remove">REMOVE</button>
+        </div >`
+
+        coinCardList.appendChild(newCard)
+        console.log(newCard)
+    }
+
+    trackCoinButton.addEventListener("click", () => {
+        addCoinToList(cryptocurrency)
+    })
 }
 
 
-
-// DISPLAY PRICE HISTORY, NEEDS WORK
-// function displayCoinTrend(coinHistory) {
-//     // access last two days of coin history
-//     // assign array.length to a variable, reference variable instead of calling.length
-//     const coinHistoryArray = coinHistory.data
-//     // use pop to do this
-//     const coinPriceTodayArrayLocation = coinHistoryArray.length - 1
-//     const coinPriceYesterdayArrayLocation = coinHistoryArray.length - 2
-//     // 
-//     const coinPriceToday = coinHistoryArray[coinPriceTodayArrayLocation].priceUsd;
-//     const coinPriceYesterday = coinHistoryArray[coinPriceYesterdayArrayLocation].priceUsd;
-//     const coinChange = coinPriceYesterday - coinPriceToday;
-//     console.log("yesterday", coinPriceYesterday)
-//     console.log("today", coinPriceToday)
-
-//     console.log("change", coinChange)
-
-//     const priceYesterday = document.getElementById('price yesterday')
-//     priceYesterday.textContent = `PRICE YESTERDAY: $${roundToTwoDecimalPlace(coinPriceYesterday)}`
-//     console.log(priceYesterday)
-// }
