@@ -8,7 +8,7 @@ const scene = new THREE.Scene()
 
 // CUBE
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 200 })
+const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 10 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 console.log("first color", material.color)
@@ -18,14 +18,14 @@ console.log("first color", material.color)
 // mesh.rotation.y = Math.PI * 0.25
 
 // LIGHTS
-const directionalLight1 = new THREE.DirectionalLight('white', 4)
-directionalLight1.position.z = 3
-directionalLight1.position.x = 1
+const directionalLight1 = new THREE.DirectionalLight('seashell', 15)
+directionalLight1.position.set(5, 0, 3)
+directionalLight1.target.position.set(0, 0, 0)
 scene.add(directionalLight1)
+scene.add(directionalLight1.target)
 
-const directionalLight2 = new THREE.DirectionalLight('palegoldenrod', 4)
-directionalLight2.position.z = 3
-directionalLight2.position.x = -2
+const directionalLight2 = new THREE.DirectionalLight('skyblue', 15)
+directionalLight2.position.set(-3, 2, 3)
 scene.add(directionalLight2)
 
 
@@ -160,7 +160,7 @@ function displayCoinData(cryptocurrency) {
     // CHANGE CUBE COLOR 
 
     if (coin24Hr > 0) {
-        material.color.setColorName("chartreuse")
+        material.color.setColorName("green")
     } else {
         material.color.setColorName("red")
     }
