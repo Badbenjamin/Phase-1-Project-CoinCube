@@ -1,47 +1,64 @@
 body {
-    background-color:rgb(101, 101, 101);
-    width: 100%;
-    float: left;
+  background-color: rgb(101, 101, 101);
+  width: 100%;
+  float: left;
 }
 
 
 #main-header {
-    text-align: center;
-    color: rgb(220, 171, 46);
+  text-align: center;
+  color: rgb(220, 171, 46);
 }
 
-.left{
-    width: 25%;
+.left {
+  width: 22%;
   float: left;
   height: 100px;
 }
-.middle{
-  width: 60%;
+
+.middle {
+  width: 600px;
   float: left;
   height: 100px;
 }
+
 .right {
-  width: 12%;
+  width: 22%;
   float: left;
   height: 100px;
 }
 
 .webgl {
-    padding-top: 25px;
+  padding-top: 25px;
   text-align: center;
 }
 
 #coin-list {
-    overflow-y: auto;
-    height: 350px;
-    cursor: pointer;
+  overflow-y: auto;
+  height: 350px;
+  cursor: pointer;
 }
 
 #change-color {
-    color:goldenrod;
-    font-size: 20px;
+  color: goldenrod;
+  font-size: 20px;
 }
 
-#coin-data{
-    text-align: center;
+#coin-data-title {
+  text-align: center;
+}
+
+#coin-data {
+  background-color: goldenrod;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+.coin-card {
+  text-align: left;
+  background-color: goldenrod;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+.container {
+  padding: 2px 16px;
 }

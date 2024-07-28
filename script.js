@@ -11,7 +11,6 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 10 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
-console.log("first color", material.color)
 
 // TRANSFORMS
 // mesh.rotation.x = Math.PI * 0.25
@@ -84,6 +83,10 @@ const coinList = document.getElementById("coin-list")
 // Select Element
 const coinFilter = document.getElementById("dropdown-content")
 
+// TRACK COINS COIN CARD
+const coinCard = document.getElementById("coin-card")
+console.log(coinCard)
+
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
@@ -143,7 +146,7 @@ function createCoinData(cryptocurrenciesArray) {
 }
 
 function displayCoinData(cryptocurrency) {
-    console.log(cryptocurrency)
+    // console.log(cryptocurrency)
     const cryptoName = document.getElementById('name')
     const cryptoSymbol = document.getElementById('symbol')
     const cryptoPrice = document.getElementById('price')
@@ -164,15 +167,15 @@ function displayCoinData(cryptocurrency) {
     } else {
         material.color.setColorName("red")
     }
-    console.log(coin24Hr)
     // CHANGE CUBE ROTATION SPEED
     if (coin24Hr >= 0) {
         cubeSpinMultiplier = coin24Hr;
     } else {
         cubeSpinMultiplier = coin24Hr;
     }
-    console.log(cubeSpinMultiplier)
 }
+
+
 
 // DISPLAY PRICE HISTORY, NEEDS WORK
 // function displayCoinTrend(coinHistory) {
