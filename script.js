@@ -82,7 +82,6 @@ const coinList = document.getElementById("coin-list")
 
 // Select Element
 const coinFilter = document.getElementById("dropdown-content")
-console.log(coinFilter)
 
 // TRACK COIN BUTTON
 const trackCoinButton = document.getElementById('track-coin-button')
@@ -108,10 +107,7 @@ fetch("https://api.coincap.io/v2/assets")
                 // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
 
-                // event listener for dropdown
-                coinFilter.addEventListener("change", () => {
-                    createCoinData(coinDataArray)
-                })
+                
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -119,6 +115,11 @@ fetch("https://api.coincap.io/v2/assets")
         }
     })
 
+
+// FILTER EVENT LISTENER
+coinFilter.addEventListener("change", () => {
+    createCoinData(coinDataArray)
+})
 
 // FUNCTIONS
 
@@ -150,22 +151,32 @@ function roundToTwoDecimalPlace(number) {
 
 // creates list of coins
 function createCoinData(cryptocurrenciesArray) {
-    console.log(coinFilter.value)
+
+    coinList.innerHTML= ""
 
     if (coinFilter.value == "all-coins") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             populateCoinList(cryptocurrency)
-            
         })
     } else if (coinFilter.value == "top-ten") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) <= 10)) {
                 populateCoinList(cryptocurrency)
-                console.log(cryptocurrency.rank)
+            }
+        })
+    } else if (coinFilter.value == "1-50") {
+        cryptocurrenciesArray.forEach((cryptocurrency) => {
+            if ((Number(cryptocurrency.rank) <= 50)) {
+                populateCoinList(cryptocurrency)
+            }
+        })
+    } else if (coinFilter.value == "50-100") {
+        cryptocurrenciesArray.forEach((cryptocurrency) => {
+            if ((Number(cryptocurrency.rank) > 50)) {
+                populateCoinList(cryptocurrency)
             }
         })
     }
-    
 }
 
 function displayCoinData(cryptocurrency) {
@@ -209,7 +220,11 @@ trackCoinButton.addEventListener("click", () => {
 // add to tracked coin list
 function addCoinToList(cryptocurrency) {
 
+    // filter to see if cc is already on list
+    const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement('div')
+
+   
 
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
@@ -226,6 +241,15 @@ function addCoinToList(cryptocurrency) {
         displayCoinData(cryptocurrency)
     })
     coinCardList.appendChild(newCard)
+
+    for (let content of coinCards) {
+        const cardSymbol = document.getElementsByClassName('tracked-coin-symbol')
+        console.log("card symbol", cardSymbol[0].innerHTML)
+    }
+    const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
+    console.log("newCard symbol", newCardSymbol[0].innerHTML)
+    
+
 }
 
 
