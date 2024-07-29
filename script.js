@@ -81,7 +81,8 @@ animate()
 const coinList = document.getElementById("coin-list")
 
 // Select Element
-// const coinFilter = document.getElementById("dropdown-content")
+const coinFilter = document.getElementById("dropdown-content")
+console.log(coinFilter)
 
 // TRACK COIN BUTTON
 const trackCoinButton = document.getElementById('track-coin-button')
@@ -106,6 +107,11 @@ fetch("https://api.coincap.io/v2/assets")
                 createCoinData(coinDataArray)
                 // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
+
+                // event listener for dropdown
+                coinFilter.addEventListener("change", () => {
+                    createCoinData(coinDataArray)
+                })
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -144,9 +150,22 @@ function roundToTwoDecimalPlace(number) {
 
 // creates list of coins
 function createCoinData(cryptocurrenciesArray) {
-    cryptocurrenciesArray.forEach((cryptocurrency) => {
-        populateCoinList(cryptocurrency)
-    })
+    console.log(coinFilter.value)
+
+    if (coinFilter.value == "all-coins") {
+        cryptocurrenciesArray.forEach((cryptocurrency) => {
+            populateCoinList(cryptocurrency)
+            
+        })
+    } else if (coinFilter.value == "top-ten") {
+        cryptocurrenciesArray.forEach((cryptocurrency) => {
+            if ((Number(cryptocurrency.rank) <= 10)) {
+                populateCoinList(cryptocurrency)
+                console.log(cryptocurrency.rank)
+            }
+        })
+    }
+    
 }
 
 function displayCoinData(cryptocurrency) {
