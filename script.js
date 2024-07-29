@@ -109,8 +109,6 @@ fetch("https://api.coincap.io/v2/assets")
                 createCoinData(coinDataArray)
                 // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
-
-                
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -123,6 +121,7 @@ fetch("https://api.coincap.io/v2/assets")
 coinFilter.addEventListener("change", () => {
     createCoinData(coinDataArray)
 })
+
 
 // FUNCTIONS
 
@@ -145,6 +144,15 @@ function populateCoinList(cryptocurrency) {
         displayCoinData(cryptocurrency)
     })
 
+}
+
+// build My Coins list from db. LEFT OFF HERE
+function buildMyCoinsList(cryptocurrency) {
+    fetch("http://localhost:3000/data")
+    .then(response => response.json())
+    .then(myCoinsList => {
+        myCoinsList.forEach(addCoinToList(cryptocurrency))
+    })
 }
 
 // rounds crypto prices
@@ -266,7 +274,7 @@ function addCoinToList(cryptocurrency) {
     }
 }
 
-// POST 
+// POST COIN TO DB
 function postCoinToDB (cryptocurrency) {
 
     const cryptocurrencyData = {
