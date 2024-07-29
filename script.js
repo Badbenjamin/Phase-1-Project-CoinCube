@@ -176,7 +176,8 @@ function createCoinData(cryptocurrenciesArray) {
                 populateCoinList(cryptocurrency)
             }
         })
-    }
+    } 
+    
 }
 
 function displayCoinData(cryptocurrency) {

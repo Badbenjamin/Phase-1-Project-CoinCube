@@ -57,6 +57,14 @@ body {
 .tracked-coin-card {
   text-align: left;
   background-color: goldenrod;
-  padding: 2px 16px;
+  padding-top: 0px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+#cards-go-here {
+  overflow-y: auto;
+  height: 500px;
 }
