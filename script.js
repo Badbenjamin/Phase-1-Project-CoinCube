@@ -236,6 +236,7 @@ function addCoinToList(cryptocurrency) {
     const removeButton = newCard.querySelector('.remove-button')
     removeButton.addEventListener("click", () => {
         newCard.remove()
+        deleteCoinFromDB(cryptocurrency)
     })
 
     newCard.addEventListener("click", () => {
@@ -261,6 +262,7 @@ function addCoinToList(cryptocurrency) {
     }
 }
 
+// POST 
 function postCoinToDB (cryptocurrency) {
 
     const formData = {
@@ -288,5 +290,13 @@ function postCoinToDB (cryptocurrency) {
     };
 
     fetch("http://localhost:3000/data", configurationObject)
+}
+
+// DELETE
+function deleteCoinFromDB (cryptocurrency) {
+    fetch(`http://localhost:3000/data/${cryptocurrency.id}`, {
+        method: "DELETE"
+    })
+    
 }
 
