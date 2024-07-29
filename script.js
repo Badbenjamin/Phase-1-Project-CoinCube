@@ -95,6 +95,9 @@ let displayedCrypto;
 // GLOBAL API STORAGE
 let coinDataArray = [];
 
+// mirrored database
+let coinDb = [];
+
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
@@ -218,6 +221,7 @@ trackCoinButton.addEventListener("click", () => {
 })
 
 
+
 // add to tracked coin list
 function addCoinToList(cryptocurrency) {
 
@@ -265,7 +269,7 @@ function addCoinToList(cryptocurrency) {
 // POST 
 function postCoinToDB (cryptocurrency) {
 
-    const formData = {
+    const cryptocurrencyData = {
       id: cryptocurrency.id,
       rank: cryptocurrency.rank,
       symbol: cryptocurrency.symbol,
@@ -286,10 +290,16 @@ function postCoinToDB (cryptocurrency) {
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(cryptocurrencyData),
     };
 
+    // post request
     fetch("http://localhost:3000/data", configurationObject)
+    .then(response => response.json())
+    .then(newCoinData => {
+        coinDb.push(newCoinData)
+        console.log("db post", coinDb)
+    })
 }
 
 // DELETE
@@ -297,6 +307,13 @@ function deleteCoinFromDB (cryptocurrency) {
     fetch(`http://localhost:3000/data/${cryptocurrency.id}`, {
         method: "DELETE"
     })
-    
+    .then(response => response.json())
+    .then(deletedCoinData => {
+        coinDb = coinDb.filter(crypto => {
+            return deletedCoinData.id !== crypto.id;
+            
+        })
+        console.log("db after delete", coinDb)
+    })
 }
 
