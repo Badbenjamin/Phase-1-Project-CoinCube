@@ -242,9 +242,12 @@ function addCoinToList(cryptocurrency) {
     })
     coinCardList.appendChild(newCard)
 
-    for (let content of coinCards) {
-        const cardSymbol = document.getElementsByClassName('tracked-coin-symbol')
-        console.log("card symbol", cardSymbol[0].innerHTML)
+    for (let htmlContent of coinCards) {
+        // console.log("content", htmlContent)
+        const cardSymbol = htmlContent.getElementsByClassName('tracked-coin-symbol')
+        for (let coin of cardSymbol) {
+            console.log("coin symbol", coin.innerHTML)
+        }
     }
     const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
     console.log("newCard symbol", newCardSymbol[0].innerHTML)
