@@ -240,19 +240,23 @@ function addCoinToList(cryptocurrency) {
     newCard.addEventListener("click", () => {
         displayCoinData(cryptocurrency)
     })
-    coinCardList.appendChild(newCard)
+    
+    const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
+
+    let currentCoinSymbols = [];
 
     for (let htmlContent of coinCards) {
-        // console.log("content", htmlContent)
         const cardSymbol = htmlContent.getElementsByClassName('tracked-coin-symbol')
         for (let coin of cardSymbol) {
-            console.log("coin symbol", coin.innerHTML)
+            currentCoinSymbols.push(coin.innerHTML)
         }
     }
-    const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
-    console.log("newCard symbol", newCardSymbol[0].innerHTML)
-    
 
+    if (!currentCoinSymbols.find((element) => element == newCardSymbol[0].innerHTML)) {
+        coinCardList.appendChild(newCard)
+    } else {
+        alert(`Error: ${newCardSymbol[0].innerHTML} is already in your list`)
+    }
 }
 
 
