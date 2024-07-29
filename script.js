@@ -87,12 +87,12 @@ const coinFilter = document.getElementById("dropdown-content")
 const trackCoinButton = document.getElementById('track-coin-button')
 
 // TRACK COINS COIN CARD
-const coinCardList = document.getElementById("cards-go-here")
+const myCoinCardList = document.getElementById("cards-go-here")
 
 // DISPLAYED CRYPTO variable, 
 let displayedCrypto;
 
-// GLOBAL API STORAGE
+// GLOBAL API STORAGE (any advantage to storing array here?)
 let coinDataArray = [];
 
 // mirrored database
@@ -109,6 +109,8 @@ fetch("https://api.coincap.io/v2/assets")
                 createCoinData(coinDataArray)
                 // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
+
+                
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -116,6 +118,8 @@ fetch("https://api.coincap.io/v2/assets")
         }
     })
 
+    // BUILD MY COINS FROM DB.JSON
+    buildMyCoinsList()
 
 // FILTER EVENT LISTENER
 coinFilter.addEventListener("change", () => {
@@ -146,12 +150,14 @@ function populateCoinList(cryptocurrency) {
 
 }
 
-// build My Coins list from db. LEFT OFF HERE
-function buildMyCoinsList(cryptocurrency) {
+// build My Coins list from db. LEFT OFF HERE. KEEPS DOUBLING LIST ON REFRESH
+// ADDING COINS AGAIN THROUGH ADD COIN TO LIST FUNCTION 
+function buildMyCoinsList() {
     fetch("http://localhost:3000/data")
     .then(response => response.json())
     .then(myCoinsList => {
-        myCoinsList.forEach(addCoinToList(cryptocurrency))
+        console.log(myCoinCardList)
+        myCoinsList.forEach(refreshCoinList)
     })
 }
 
@@ -228,7 +234,31 @@ trackCoinButton.addEventListener("click", () => {
     addCoinToList(displayedCrypto)
 })
 
+// refresh coin list from db.json without re adding to db.json
+function refreshCoinList (cryptocurrency) {
+    // filter to see if cc is already on list
+    const coinCards = document.getElementsByClassName("tracked-coin-card")
+    const newCard = document.createElement('div')
 
+    newCard.innerHTML =
+        `<div class="tracked-coin-card" >
+            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
+            <h4 class="tracked-coin-price">$${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
+            <button class="remove-button">REMOVE</button>
+        </div >`
+    const removeButton = newCard.querySelector('.remove-button')
+    removeButton.addEventListener("click", () => {
+        newCard.remove()
+        deleteCoinFromDB(cryptocurrency)
+    })
+
+    newCard.addEventListener("click", () => {
+        displayCoinData(cryptocurrency)
+    })
+
+    myCoinCardList.appendChild(newCard)
+
+}
 
 // add to tracked coin list
 function addCoinToList(cryptocurrency) {
@@ -236,8 +266,6 @@ function addCoinToList(cryptocurrency) {
     // filter to see if cc is already on list
     const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement('div')
-
-   
 
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
@@ -257,6 +285,7 @@ function addCoinToList(cryptocurrency) {
     
     const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
 
+    // array of coin symbols in My Coins list
     let currentCoinSymbols = [];
 
     for (let htmlContent of coinCards) {
@@ -266,13 +295,15 @@ function addCoinToList(cryptocurrency) {
         }
     }
 
+    // if find method locates a match in the list the "!" operator makes the statement falsey
     if (!currentCoinSymbols.find((element) => element == newCardSymbol[0].innerHTML)) {
-        coinCardList.appendChild(newCard)
+        myCoinCardList.appendChild(newCard)
         postCoinToDB(cryptocurrency);
     } else {
         alert(`Error: ${newCardSymbol[0].innerHTML} is already in your list`)
     }
 }
+
 
 // POST COIN TO DB
 function postCoinToDB (cryptocurrency) {
