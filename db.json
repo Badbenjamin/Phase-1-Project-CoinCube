@@ -1,3 +1,46 @@
 {
-  "data": []
+  "data": [
+    {
+      "id": "tron",
+      "rank": "10",
+      "symbol": "TRX",
+      "name": "TRON",
+      "supply": "87052239465.3767100000000000",
+      "maxSupply": null,
+      "marketCapUsd": "12030668008.0519595571844685",
+      "volumeUsd24Hr": "172405964.0859065089068903",
+      "priceUsd": "0.1382005572968277",
+      "changePercent24Hr": "-0.5938504311085192",
+      "vwap24Hr": "0.1374989220223614",
+      "explorer": "https://tronscan.org/#/"
+    },
+    {
+      "id": "multi-collateral-dai",
+      "rank": "19",
+      "symbol": "DAI",
+      "name": "Multi Collateral DAI",
+      "supply": "5347888595.7464075000000000",
+      "maxSupply": null,
+      "marketCapUsd": "5350863082.8069404107092161",
+      "volumeUsd24Hr": "56583771.4387231574327168",
+      "priceUsd": "1.0005561983962977",
+      "changePercent24Hr": "-0.1350883264549152",
+      "vwap24Hr": "1.0014286202307068",
+      "explorer": "https://etherscan.io/token/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
+    },
+    {
+      "id": "cardano",
+      "rank": "9",
+      "symbol": "ADA",
+      "name": "Cardano",
+      "supply": "35907755375.2180000000000000",
+      "maxSupply": "45000000000.0000000000000000",
+      "marketCapUsd": "14638451660.8981656865182387",
+      "volumeUsd24Hr": "148175568.8902249099862254",
+      "priceUsd": "0.4076682462586063",
+      "changePercent24Hr": "0.3687209421453351",
+      "vwap24Hr": "0.4150041730289766",
+      "explorer": "https://cardanoexplorer.com/"
+    }
+  ]
 }
