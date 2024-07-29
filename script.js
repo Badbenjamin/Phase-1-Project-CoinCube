@@ -206,7 +206,6 @@ function addCoinToList(cryptocurrency) {
     newCard.addEventListener("click", () => {
         displayCoinData(cryptocurrency)
     })
-
     coinCardList.appendChild(newCard)
 }
 
