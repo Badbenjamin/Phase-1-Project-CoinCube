@@ -255,10 +255,38 @@ function addCoinToList(cryptocurrency) {
 
     if (!currentCoinSymbols.find((element) => element == newCardSymbol[0].innerHTML)) {
         coinCardList.appendChild(newCard)
+        postCoinToDB(cryptocurrency);
     } else {
         alert(`Error: ${newCardSymbol[0].innerHTML} is already in your list`)
     }
 }
 
+function postCoinToDB (cryptocurrency) {
 
+    const formData = {
+      id: cryptocurrency.id,
+      rank: cryptocurrency.rank,
+      symbol: cryptocurrency.symbol,
+      name: cryptocurrency.name,
+      supply: cryptocurrency.supply,
+      maxSupply: cryptocurrency.maxSupply,
+      marketCapUsd: cryptocurrency.marketCapUsd,
+      volumeUsd24Hr: cryptocurrency.volumeUsd24Hr,
+      priceUsd: cryptocurrency.priceUsd,
+      changePercent24Hr: cryptocurrency.changePercent24Hr,
+      vwap24Hr: cryptocurrency.vwap24Hr,
+      explorer: cryptocurrency.explorer
+    }
+
+    const configurationObject = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData),
+    };
+
+    fetch("http://localhost:3000/data", configurationObject)
+}
 
