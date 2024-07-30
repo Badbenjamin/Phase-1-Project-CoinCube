@@ -1,10 +1,63 @@
 import * as THREE from 'three'
 
+import { FontLoader } from 'three/examples/jsm/Addons.js';
+
+import { TextGeometry } from 'three/examples/jsm/Addons.js';
+
 // GLOBAL ANIMATION VARIABLES
 let cubeSpinMultiplier = 1;
 
 // SCENE
 const scene = new THREE.Scene()
+
+// FONT LOADER
+let threeDText = ""
+let text;
+
+function loadText () {
+
+    const fontLoader = new FontLoader()
+
+    fontLoader.load(
+        `static/fonts/helvetiker_regular.typeface.json`,
+        (font) => {
+            const textGeometry = new TextGeometry(
+                `${threeDText}`,
+                {
+                    font: font,
+                    size: 0.3,
+                    depth: 0.01,
+                    curveSegments: 1,
+                    bevelEnabled: true,
+                    bevelThickness: 0.03,
+                    bevelSize: 0.02,
+                    bevelOffset: 0,
+                    bevelSegments: 1
+                }
+            )
+            
+            const textMaterial = new THREE.MeshPhongMaterial({color: 'grey'})
+            text = new THREE.Mesh(textGeometry, textMaterial)
+            textGeometry.computeBoundingBox()
+            
+            // TEXT POSITION
+            textGeometry.center()
+            text.position.x = -1.4
+            text.position.y = -1
+            scene.add(text)
+
+            function animateText() {
+                const elapsedTime = clock.getElapsedTime();
+                text.rotation.y = elapsedTime
+                renderer.render(scene, camera)
+
+                window.requestAnimationFrame(animateText)
+            }
+            animateText()
+        }
+    )
+}
+
 
 // CUBE
 const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -36,8 +89,8 @@ const sizes = {
 
 // CAMERA
 
-const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height)
-camera.position.z = 3
+const camera = new THREE.PerspectiveCamera(20, sizes.width / sizes.height)
+camera.position.z = 8
 scene.add(camera)
 
 
@@ -63,9 +116,10 @@ const animate = () => {
     // Update objects
     mesh.rotation.y = elapsedTime * cubeSpinMultiplier;
 
-    camera.position.x = Math.sin(elapsedTime) / 2
-    camera.position.y = Math.sin(elapsedTime) / 2
-    camera.lookAt(mesh.position)
+    // CAMERA MOVEMENT
+    // camera.position.x = Math.sin(elapsedTime) / 2
+    // camera.position.y = Math.sin(elapsedTime) / 2
+    // camera.lookAt(mesh.position)
 
     // Render
     renderer.render(scene, camera)
@@ -225,6 +279,10 @@ function displayCoinData(cryptocurrency) {
     } else {
         cubeSpinMultiplier = coin24Hr;
     }
+    // CHANGE 3D text
+    threeDText = cryptocurrency.symbol
+    scene.remove(text)
+    loadText()
     displayedCrypto = cryptocurrency;
 }
 

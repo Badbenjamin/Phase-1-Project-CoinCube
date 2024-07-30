@@ -1,3 +1,32 @@
 {
-  "data": []
+  "data": [
+    {
+      "id": "chainlink",
+      "rank": "15",
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "supply": "608099970.4527867000000000",
+      "maxSupply": null,
+      "marketCapUsd": "8079759958.4308897582628511",
+      "volumeUsd24Hr": "80247738.1952206676326590",
+      "priceUsd": "13.2868941802690120",
+      "changePercent24Hr": "-1.7965513547291249",
+      "vwap24Hr": "13.5784886939421946",
+      "explorer": "https://etherscan.io/token/0x514910771af9ca656af840dff83e8264ecf986ca"
+    },
+    {
+      "id": "ethereum",
+      "rank": "2",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "supply": "120247672.2867723400000000",
+      "maxSupply": null,
+      "marketCapUsd": "395718374180.3172575419904931",
+      "volumeUsd24Hr": "5547923802.8598157436620271",
+      "priceUsd": "3290.8609926069034424",
+      "changePercent24Hr": "-0.5635813585647028",
+      "vwap24Hr": "3322.4508501160860494",
+      "explorer": "https://etherscan.io/"
+    }
+  ]
 }
