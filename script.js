@@ -120,8 +120,6 @@ fetch("https://api.coincap.io/v2/assets")
         }
     })
 
-    
-
 // FILTER EVENT LISTENER
 coinFilter.addEventListener("change", () => {
     createCoinData(coinDataArray)
@@ -155,11 +153,12 @@ function populateCoinList(cryptocurrency) {
 // ADDING COINS AGAIN THROUGH ADD COIN TO LIST FUNCTION 
 function buildMyCoinsList() {
     fetch("http://localhost:3000/data")
-    .then(response => response.json())
+    .then((response) => response.json())
     .then(myCoinsList => {
         console.log(myCoinCardList)
         myCoinsList.forEach(refreshCoinList)
     })
+    .catch((error) => alert(`${error}`))
 }
 
 // rounds crypto prices
