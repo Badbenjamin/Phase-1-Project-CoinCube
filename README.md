@@ -5,7 +5,9 @@ This project will map cryptocurrency data from an external API to a canvas conta
 # INSTRUCTIONS
 
 ## set up json-server
-json-server --watch db.json
+first time - npm install -g json-server
+
+all other times - json-server --watch db.json
 
 ## run site through vite
 run dev

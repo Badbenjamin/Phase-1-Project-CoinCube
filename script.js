@@ -75,7 +75,7 @@ const animate = () => {
 }
 animate()
 
-// API and DOM 
+// WEBSITE FUNCTIONALITY
 
 // Choose coin. Filtered list of coins appears here
 const coinList = document.getElementById("coin-list")
@@ -109,6 +109,8 @@ fetch("https://api.coincap.io/v2/assets")
                 createCoinData(coinDataArray)
                 // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
+                // BUILD MY COINS FROM DB.JSON
+                buildMyCoinsList()
 
                 
             })
@@ -118,8 +120,7 @@ fetch("https://api.coincap.io/v2/assets")
         }
     })
 
-    // BUILD MY COINS FROM DB.JSON
-    buildMyCoinsList()
+    
 
 // FILTER EVENT LISTENER
 coinFilter.addEventListener("change", () => {
@@ -349,6 +350,7 @@ function deleteCoinFromDB (cryptocurrency) {
     .then(response => response.json())
     .then(deletedCoinData => {
         coinDb = coinDb.filter(crypto => {
+            // only returns database elements that dont match the id of the delted coin
             return deletedCoinData.id !== crypto.id;
             
         })
