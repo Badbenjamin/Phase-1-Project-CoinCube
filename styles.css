@@ -10,6 +10,10 @@ body {
   color: rgb(220, 171, 46);
 }
 
+#market-cap{
+  text-align: center;
+}
+
 .left {
   width: 22%;
   float: left;
@@ -30,6 +34,9 @@ body {
 
 .webgl {
   padding-top: 25px;
+  padding-bottom: 25px;
+  /* padding-left: 25px;
+  padding-right: 25px; */
   text-align: center;
 }
 
@@ -67,4 +74,10 @@ body {
 #cards-go-here {
   overflow-y: auto;
   height: 500px;
+}
+
+#enter-new-card{
+  background-color: palegoldenrod;
+  padding-right: 0px;
+  box-shadow: 0 6px 10px 0 rgba(5, 5, 5, 3);
 }

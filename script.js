@@ -162,6 +162,9 @@ let coinDataArray = [];
 // mirrored database
 let coinDb = [];
 
+// marketcap total
+let totalMarketCap;
+
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
@@ -176,6 +179,11 @@ fetch("https://api.coincap.io/v2/assets")
                 // BUILD MY COINS FROM DB.JSON
                 buildMyCoinsList()
 
+                const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
+                totalMarketCap = marketCapArray.reduce((a, b) => a + b)
+                const marketCapHeader = document.getElementById('market-cap')
+                marketCapHeader.innerText = `The top 100 cryptocurrencies are worth this much: ${roundToTwoDecimalPlace(totalMarketCap)}`
+
                 
             })
         } else {
@@ -189,8 +197,6 @@ coinFilter.addEventListener("change", () => {
     createCoinData(coinDataArray)
 })
 
-
-// FUNCTIONS
 
 function populateCoinList(cryptocurrency) {
     const coinListItem = document.createElement('li')
@@ -219,7 +225,6 @@ function buildMyCoinsList() {
     fetch("http://localhost:3000/data")
     .then((response) => response.json())
     .then(myCoinsList => {
-        console.log(myCoinCardList)
         myCoinsList.forEach(refreshCoinList)
     })
     .catch((error) => alert(`${error}`))
@@ -324,6 +329,14 @@ function refreshCoinList (cryptocurrency) {
         displayCoinData(cryptocurrency)
     })
 
+    newCard.addEventListener("mouseenter", () => {
+        newCard.id = "enter-new-card"
+    })
+
+    newCard.addEventListener("mouseleave", () => {
+        newCard.id = ""
+    })
+
     myCoinCardList.appendChild(newCard)
 
 }
@@ -333,7 +346,7 @@ function addCoinToList(cryptocurrency) {
 
     // filter to see if cc is already on list
     const coinCards = document.getElementsByClassName("tracked-coin-card")
-    const newCard = document.createElement('div')
+    const newCard = document.createElement("div")
 
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
@@ -349,6 +362,14 @@ function addCoinToList(cryptocurrency) {
 
     newCard.addEventListener("click", () => {
         displayCoinData(cryptocurrency)
+    })
+
+    newCard.addEventListener("mouseenter", () => {
+        newCard.id = "enter-new-card"
+    })
+
+    newCard.addEventListener("mouseleave", () => {
+        newCard.id = ""
     })
     
     const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
@@ -405,7 +426,6 @@ function postCoinToDB (cryptocurrency) {
     .then(response => response.json())
     .then(newCoinData => {
         coinDb.push(newCoinData)
-        console.log("db post", coinDb)
     })
 }
 
@@ -421,7 +441,10 @@ function deleteCoinFromDB (cryptocurrency) {
             return deletedCoinData.id !== crypto.id;
             
         })
-        console.log("db after delete", coinDb)
     })
 }
 
+function calculateMarketCapTop100(coinDataArray) {
+    console.log(coinDataArray)
+}
+calculateMarketCapTop100()
