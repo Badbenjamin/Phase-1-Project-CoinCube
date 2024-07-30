@@ -11,7 +11,7 @@ let cubeSpinMultiplier = 1;
 const scene = new THREE.Scene()
 
 // FONT LOADER
-let threeDText = ""
+let threeDTextContent = ""
 let text;
 
 function loadText () {
@@ -22,7 +22,7 @@ function loadText () {
         `static/fonts/helvetiker_regular.typeface.json`,
         (font) => {
             const textGeometry = new TextGeometry(
-                `${threeDText}`,
+                `${threeDTextContent}`,
                 {
                     font: font,
                     size: 0.3,
@@ -60,24 +60,32 @@ function loadText () {
 
 
 // CUBE
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+const geometry = new THREE.BoxGeometry(1.4, 1.4, 1.4);
 const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 10 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
+// PLANE
+const plane = new THREE.PlaneGeometry(8,8)
+const planeMat = new THREE.MeshPhongMaterial({ color: "black", shininess: 10 })
+const planeMesh = new THREE.Mesh(plane, planeMat)
+scene.add(planeMesh)
+
 // TRANSFORMS
+mesh.position.y = 0.2;
+planeMesh.position.z = -3
 // mesh.rotation.x = Math.PI * 0.25
 // mesh.rotation.y = Math.PI * 0.25
 
 // LIGHTS
-const directionalLight1 = new THREE.DirectionalLight('seashell', 15)
-directionalLight1.position.set(5, 0, 3)
+const directionalLight1 = new THREE.DirectionalLight('seashell', 20)
+directionalLight1.position.set(5, 2, 6)
 directionalLight1.target.position.set(0, 0, 0)
 scene.add(directionalLight1)
 scene.add(directionalLight1.target)
 
 const directionalLight2 = new THREE.DirectionalLight('skyblue', 15)
-directionalLight2.position.set(-3, 2, 3)
+directionalLight2.position.set(-5,-2, 5)
 scene.add(directionalLight2)
 
 
@@ -100,7 +108,8 @@ const canvas = document.querySelector("canvas.webgl")
 // RENDERER
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    antialias: true
+    antialias: true,
+    shadowMap: true
 })
 renderer.setSize(sizes.width, sizes.height)
 
@@ -115,6 +124,7 @@ const animate = () => {
 
     // Update objects
     mesh.rotation.y = elapsedTime * cubeSpinMultiplier;
+    mesh.rotation.x = (Math.sin)(elapsedTime) / 5;
 
     // CAMERA MOVEMENT
     // camera.position.x = Math.sin(elapsedTime) / 2
@@ -280,7 +290,7 @@ function displayCoinData(cryptocurrency) {
         cubeSpinMultiplier = coin24Hr;
     }
     // CHANGE 3D text
-    threeDText = cryptocurrency.symbol
+    threeDTextContent = cryptocurrency.symbol
     scene.remove(text)
     loadText()
     displayedCrypto = cryptocurrency;
