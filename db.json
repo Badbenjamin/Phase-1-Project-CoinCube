@@ -27,6 +27,34 @@
       "changePercent24Hr": "0.6872681224662809",
       "vwap24Hr": "66118.4204098287400651",
       "explorer": "https://blockchain.info/"
+    },
+    {
+      "id": "crypto-com-coin",
+      "rank": "32",
+      "symbol": "CRO",
+      "name": "Crypto.com Coin",
+      "supply": "25263013692.0000000000000000",
+      "maxSupply": "30263013692.0000000000000000",
+      "marketCapUsd": "2248654702.1736612895664388",
+      "volumeUsd24Hr": "2998626.4020342866628128",
+      "priceUsd": "0.0890097566976239",
+      "changePercent24Hr": "0.0536565751217068",
+      "vwap24Hr": "0.0889504388343234",
+      "explorer": "https://etherscan.io/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
+    },
+    {
+      "id": "bitcoin-cash",
+      "rank": "14",
+      "symbol": "BCH",
+      "name": "Bitcoin Cash",
+      "supply": "19740653.1250000000000000",
+      "maxSupply": "21000000.0000000000000000",
+      "marketCapUsd": "8387595567.7986325690321903",
+      "volumeUsd24Hr": "93100709.3511546960018917",
+      "priceUsd": "424.8894661532954001",
+      "changePercent24Hr": "-2.5618456349144410",
+      "vwap24Hr": "432.8037889041590453",
+      "explorer": "https://blockchair.com/bitcoin-cash/blocks"
     }
   ]
 }

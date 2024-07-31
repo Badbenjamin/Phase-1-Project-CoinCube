@@ -231,8 +231,8 @@ function buildMyCoinsList() {
 }
 
 // rounds crypto prices
-function roundToTwoDecimalPlace(number) {
-    return (Math.round(number * 10 ** 2) / 10 ** 2);
+function roundAndFormatNumber(number) {
+    return new Intl.NumberFormat().format(Math.round(number * 10 ** 2) / 10 ** 2);
 }
 
 // creates list of coins
@@ -278,8 +278,8 @@ function displayCoinData(cryptocurrency) {
 
     cryptoName.textContent = `NAME: ${cryptocurrency.name}`
     cryptoSymbol.textContent = `SYMBOL: ${cryptocurrency.symbol}`
-    cryptoPrice.textContent = `PRICE USD: $${roundToTwoDecimalPlace(coinPrice)}`
-    crypto24Hr.textContent = `24Hr CHANGE: ${roundToTwoDecimalPlace(coin24Hr)}%`
+    cryptoPrice.textContent = `PRICE USD: $${roundAndFormatNumber(coinPrice)}`
+    crypto24Hr.textContent = `24Hr CHANGE: ${roundAndFormatNumber(coin24Hr)}%`
 
     // CHANGE CUBE COLOR 
 
@@ -316,7 +316,7 @@ function refreshCoinList(cryptocurrency) {
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
             <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
-            <h4 class="tracked-coin-price">$${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
+            <h4 class="tracked-coin-price">$${roundAndFormatNumber(cryptocurrency.priceUsd)}</h4>
             <button class="remove-button">REMOVE</button>
         </div >`
     const removeButton = newCard.querySelector('.remove-button')
@@ -352,7 +352,7 @@ function addCoinToList(cryptocurrency) {
     newCard.innerHTML =
         `<div class="tracked-coin-card" >
             <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
-            <h4 class="tracked-coin-price">$${roundToTwoDecimalPlace(cryptocurrency.priceUsd)}</h4>
+            <h4 class="tracked-coin-price">$${roundAndFormatNumber(cryptocurrency.priceUsd)}</h4>
             <button class="remove-button">REMOVE</button>
         </div >`
     const removeButton = newCard.querySelector('.remove-button')
@@ -450,7 +450,7 @@ function calculateMarketCap() {
     const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
     totalMarketCap = marketCapArray.reduce((a, b) => a + b)
     const marketCapHeader = document.getElementById('market-cap')
-    marketCapHeader.innerText = `Top 100 Market Cap: $${roundToTwoDecimalPlace(totalMarketCap)}`
+    marketCapHeader.innerText = `Top 100 Market Cap: $${roundAndFormatNumber(totalMarketCap)}`
 }
 
 function onResize() {

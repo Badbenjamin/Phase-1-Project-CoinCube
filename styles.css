@@ -1,6 +1,7 @@
 body {
   background-color: rgb(88, 88, 88);
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 h2{
@@ -50,7 +51,7 @@ h2{
 }
 
 #coin-list {
-  background-color: #a9a9a9;
+  background-color: #424242;
   overflow-y: auto;
   height: 65%;
   cursor: pointer;
