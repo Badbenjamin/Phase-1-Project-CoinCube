@@ -66,7 +66,7 @@ const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
 // PLANE
-const plane = new THREE.PlaneGeometry(8, 8)
+const plane = new THREE.PlaneGeometry(20, 20)
 const planeMat = new THREE.MeshPhongMaterial({ color: "black", shininess: 10 })
 const planeMesh = new THREE.Mesh(plane, planeMat)
 scene.add(planeMesh)
@@ -312,6 +312,7 @@ function refreshCoinList(cryptocurrency) {
     // filter to see if cc is already on list
     const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement('div')
+    newCard.class = "tracked-coin-card";
 
     newCard.innerHTML =
         `<div class="tracked-coin-card" >

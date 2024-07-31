@@ -71,7 +71,7 @@ h2{
   width: 96%;
   background-color: goldenrod;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
-  padding: 1px 16px;
+  padding: 1% 2%;
   border-radius: 25px;
   height: 25vh;
 }
@@ -108,8 +108,8 @@ h2{
   text-align: center;
   font-size: 16px;
   border-radius: 25px;
-  width: 15vw;
-  height: 5vh;
+  /* width: 15vw;
+  height: 5vh; */
 }
 
 #track-coin-button:hover{
