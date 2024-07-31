@@ -262,8 +262,25 @@ function createCoinData(cryptocurrenciesArray) {
                 populateCoinList(cryptocurrency)
             }
         })
+    } else if (coinFilter.value == "A-Z") {
+        console
+        const nameArray = cryptocurrenciesArray.map((cryptocurrency) => cryptocurrency.name)
+        const aToZObject = nameArray.toSorted()
+        console.log(cryptocurrenciesArray[0].name)
+        // console.log(aToZObject)
+        // console.log(cryptocurrenciesArray)
+        for (let name of aToZObject) {
+            // console.log(name)
+            let aToZName = name
+            for (let cryptocurrency of cryptocurrenciesArray){
+                // console.log(cryptocurrency.name)
+                if (aToZName == cryptocurrency.name) {
+                    populateCoinList(cryptocurrency)
+                }
+            }
+        }
     }
-
+        
 }
 
 function displayCoinData(cryptocurrency) {
