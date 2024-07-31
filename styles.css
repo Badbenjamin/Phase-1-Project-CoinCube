@@ -1,13 +1,21 @@
 body {
-  background-color: rgb(101, 101, 101);
+  background-color: rgb(88, 88, 88);
   width: 100%;
-  /* float: left; */
+}
+
+h2{
+  text-align: center;
+  background-color: rgb(193, 193, 193);
+  border-radius: 25px;
 }
 
 
 #main-header {
   text-align: center;
   color: rgb(220, 171, 46);
+  font-size: 100px;
+  height: 5vh;
+
 }
 
 #market-cap {
@@ -17,34 +25,36 @@ body {
 .left {
   width: 20vw;
   float: left;
-  height: 100%;
+  height: 100vh;
+  /* padding: 2px; */
 }
 
 .middle {
   width: 60vw;
   float: left;
-  height: 100%;
+  height: 100vh;
 }
 
 .right {
   width: 20vw;
   float: left;
-  height: 100%;
+  height: 100vh;
+  /* padding-right: 2px; */
 }
 
 .webgl {
   padding-top: 25px;
   padding-bottom: 25px;
-  /* padding-left: 25px;
-  padding-right: 25px; */
-  text-align: center;
   width: 60%;
+  
 }
 
 #coin-list {
+  background-color: #a9a9a9;
   overflow-y: auto;
-  height: 350px;
+  height: 65%;
   cursor: pointer;
+  border-radius: 25px;
 }
 
 #change-color {
@@ -57,11 +67,12 @@ body {
 }
 
 #coin-data {
-  width: 50vw;
+  width: 96%;
   background-color: goldenrod;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
   padding: 1px 16px;
   border-radius: 25px;
+  height: 25vh;
 }
 
 .tracked-coin-card {
@@ -73,15 +84,65 @@ body {
   padding-left: 16px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
   border-radius: 25px;
+  width: 18vw;
+  height: 10vh;
 }
 
 #cards-go-here {
   overflow-y: auto;
-  height: 500px;
+  height: 68.5%;
 }
 
 #enter-new-card {
   /* background-color: palegoldenrod; */
   padding-right: 0px;
   box-shadow: 0 6px 10px 0 rgba(5, 5, 5, 3);
+}
+
+#track-coin-button{
+  background-color: #000000; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 25px;
+  width: 15vw;
+  height: 5vh;
+}
+
+#track-coin-button:hover{
+  color: goldenrod;
+  
+}
+
+.remove-button{
+  background-color: #000000; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 25px;
+}
+
+.remove-button:hover{
+  background-color: #000000; /* Green */
+  border: none;
+  color: goldenrod;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
+}
+
+#dropdown-content{
+  position: relative;
+  background-color: #b3b3b3;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 6px 12px;
+  border-radius: 25px;
 }

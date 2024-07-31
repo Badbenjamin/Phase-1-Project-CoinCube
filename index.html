@@ -10,14 +10,13 @@
 
 <body>
     <h1 id="main-header">CryptoCube</h1>
-    <h2 id="market-cap">HEADER 2</h2>
     <div class="left">
         <h2>CHOOSE COIN</h2>
         <select id="dropdown-content">
             <option value="all-coins">ALL COINS</option>
-            <option value="top-ten">1-10</option>
-            <option value="1-50">1-50</option>
-            <option value="50-100">50-100</option>
+            <option value="top-ten">TOP TEN COINS</option>
+            <option value="1-50">TOP 50 COINS</option>
+            <option value="50-100">BOTTOM 50 COINS</option>
             <!-- <option value="A-Z">A-Z</option> -->
         </select>
 
@@ -28,6 +27,7 @@
         </ul>
     </div>
     <div class="middle">
+        <h2 id="market-cap">HEADER 2</h2>
         <canvas class="webgl"></canvas>
         <div id="coin-data">
             <h2 id="coin-data-title">COIN DATA</h2>

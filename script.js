@@ -320,6 +320,7 @@ function refreshCoinList(cryptocurrency) {
             <button class="remove-button">REMOVE</button>
         </div >`
     const removeButton = newCard.querySelector('.remove-button')
+    // removeButton.class = "button"
     removeButton.addEventListener("click", () => {
         newCard.remove()
         deleteCoinFromDB(cryptocurrency)
@@ -449,7 +450,7 @@ function calculateMarketCap() {
     const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
     totalMarketCap = marketCapArray.reduce((a, b) => a + b)
     const marketCapHeader = document.getElementById('market-cap')
-    marketCapHeader.innerText = `The top 100 Market Cap: $${roundToTwoDecimalPlace(totalMarketCap)}`
+    marketCapHeader.innerText = `Top 100 Market Cap: $${roundToTwoDecimalPlace(totalMarketCap)}`
 }
 
 function onResize() {
