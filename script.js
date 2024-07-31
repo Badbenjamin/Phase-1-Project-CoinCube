@@ -90,9 +90,13 @@ scene.add(directionalLight2)
 
 
 // SIZES
+const middleDiv = document.querySelector('.middle')
+console.log(middleDiv)
+
 const sizes = {
-    width: 600,
-    height: 400,
+    
+    width: window.innerWidth * .6,
+    height: window.innerHeight * .4,
 }
 
 // CAMERA
@@ -449,7 +453,13 @@ function calculateMarketCap() {
 }
 
 function onResize() {
-    console.log("resized!")
+    sizes.width = window.innerWidth * 0.6;
+    sizes.height = window.innerHeight * 0.4;
+
+    camera.aspect = (sizes.width)/ (sizes.height);
+    camera.updateProjectionMatrix()
+
+    renderer.setSize(sizes.width, sizes.height)
 }
 
 window.addEventListener('resize', onResize)
