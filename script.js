@@ -339,8 +339,6 @@ removeButton.addEventListener("click", () => {
     })
 
     newCard.addEventListener("click", () => {displayCoinData(cryptocurrency)})
-    newCard.addEventListener("mouseenter", () => {newCard.id = "enter-new-card"})
-    newCard.addEventListener("mouseleave", () => {newCard.id = ""})
 }
 
 function postCoinToDB(cryptocurrency) {

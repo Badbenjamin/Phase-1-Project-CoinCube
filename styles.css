@@ -10,12 +10,12 @@ h2{
   border-radius: 25px;
 }
 
-
 #main-header {
   text-align: center;
   color: rgb(220, 171, 46);
   font-size: 100px;
   height: 5vh;
+
 }
 
 #market-cap {
@@ -25,18 +25,19 @@ h2{
 .left {
   width: 20vw;
   float: left;
-  height: 100vh;
+  height: 100%;
 }
 
 .middle {
   width: 60vw;
   float: left;
+  height: 100%;
 }
 
 .right {
   width: 20vw;
   float: left;
-  height: 100vh;
+  height: 100%;
 }
 
 .webgl {
@@ -81,28 +82,27 @@ h2{
   border-radius: 25px;
 }
 
+.tracked-coin-card:hover{
+  background-color: rgb(217, 184, 100);
+}
+
 #cards-go-here {
   overflow-y: auto;
   height: 68.5%;
 }
 
-#enter-new-card {
-  background-color: palegoldenrod;
-  padding-right: 0px;
+/* #enter-new-card {
   box-shadow: 0 6px 10px 0 rgba(5, 5, 5, 3);
-}
+} */
 
 #track-coin-button{
-  background-color: #000000; /* Green */
+  background-color: #000000;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   font-size: 16px;
   border-radius: 25px;
-  
-  /* width: 15vw;
-  height: 5vh; */
 }
 
 #track-coin-button:hover{
