@@ -1,3 +1,60 @@
 {
-  "data": []
+  "data": [
+    {
+      "id": "tron",
+      "rank": "10",
+      "symbol": "TRX",
+      "name": "TRON",
+      "supply": "87046475180.0954100000000000",
+      "maxSupply": null,
+      "marketCapUsd": "11576611612.4358772362985857",
+      "volumeUsd24Hr": "99700223.0756468758366844",
+      "priceUsd": "0.1329934565240507",
+      "changePercent24Hr": "-3.3352801196635584",
+      "vwap24Hr": "0.1354792159782072",
+      "explorer": "https://tronscan.org/#/"
+    },
+    {
+      "id": "shiba-inu",
+      "rank": "13",
+      "symbol": "SHIB",
+      "name": "Shiba Inu",
+      "supply": "589270536815279.4000000000000000",
+      "maxSupply": null,
+      "marketCapUsd": "9671160936.7127012009923985",
+      "volumeUsd24Hr": "57236309.1994303878925997",
+      "priceUsd": "0.0000164120897491",
+      "changePercent24Hr": "-1.4015749422289715",
+      "vwap24Hr": "0.0000165862054957",
+      "explorer": "https://etherscan.io/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
+    },
+    {
+      "id": "avalanche",
+      "rank": "11",
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "supply": "394872510.5421965000000000",
+      "maxSupply": "715748719.0000000000000000",
+      "marketCapUsd": "10393958786.5654685780145073",
+      "volumeUsd24Hr": "68814744.1416066371768572",
+      "priceUsd": "26.3223154539008078",
+      "changePercent24Hr": "-2.7035373777753376",
+      "vwap24Hr": "26.8318713013123953",
+      "explorer": "https://avascan.info/"
+    },
+    {
+      "id": "bitcoin",
+      "rank": "1",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "supply": "19733525.0000000000000000",
+      "maxSupply": "21000000.0000000000000000",
+      "marketCapUsd": "1304811314828.4724692761439350",
+      "volumeUsd24Hr": "11109544036.5409652621969165",
+      "priceUsd": "66121.5527802798774814",
+      "changePercent24Hr": "-0.9236528298763639",
+      "vwap24Hr": "66343.1618559313708527",
+      "explorer": "https://blockchain.info/"
+    }
+  ]
 }

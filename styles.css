@@ -10,26 +10,26 @@ body {
   color: rgb(220, 171, 46);
 }
 
-#market-cap{
+#market-cap {
   text-align: center;
 }
 
 .left {
-  width: 22%;
+  width: 20%;
   float: left;
-  height: 100px;
+  height: 100%;
 }
 
 .middle {
-  width: 600px;
+  width: 60%;
   float: left;
-  height: 100px;
+  height: 100%;
 }
 
 .right {
-  width: 22%;
+  width: 20%;
   float: left;
-  height: 100px;
+  height: 100%;
 }
 
 .webgl {
@@ -38,6 +38,7 @@ body {
   /* padding-left: 25px;
   padding-right: 25px; */
   text-align: center;
+  width: 60%;
 }
 
 #coin-list {
@@ -59,16 +60,18 @@ body {
   background-color: goldenrod;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
   padding: 1px 16px;
+  border-radius: 25px;
 }
 
 .tracked-coin-card {
   text-align: left;
   background-color: goldenrod;
-  padding-top: 0px;
+  padding-top: opx;
   padding-right: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+  border-radius: 25px;
 }
 
 #cards-go-here {
@@ -76,8 +79,8 @@ body {
   height: 500px;
 }
 
-#enter-new-card{
-  background-color: palegoldenrod;
+#enter-new-card {
+  /* background-color: palegoldenrod; */
   padding-right: 0px;
   box-shadow: 0 6px 10px 0 rgba(5, 5, 5, 3);
 }

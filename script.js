@@ -14,7 +14,7 @@ const scene = new THREE.Scene()
 let threeDTextContent = ""
 let text;
 
-function loadText () {
+function loadText() {
 
     const fontLoader = new FontLoader()
 
@@ -35,11 +35,11 @@ function loadText () {
                     bevelSegments: 1
                 }
             )
-            
-            const textMaterial = new THREE.MeshPhongMaterial({color: 'grey'})
+
+            const textMaterial = new THREE.MeshPhongMaterial({ color: 'grey' })
             text = new THREE.Mesh(textGeometry, textMaterial)
             textGeometry.computeBoundingBox()
-            
+
             // TEXT POSITION
             textGeometry.center()
             text.position.x = -1.4
@@ -66,7 +66,7 @@ const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
 // PLANE
-const plane = new THREE.PlaneGeometry(8,8)
+const plane = new THREE.PlaneGeometry(8, 8)
 const planeMat = new THREE.MeshPhongMaterial({ color: "black", shininess: 10 })
 const planeMesh = new THREE.Mesh(plane, planeMat)
 scene.add(planeMesh)
@@ -85,14 +85,14 @@ scene.add(directionalLight1)
 scene.add(directionalLight1.target)
 
 const directionalLight2 = new THREE.DirectionalLight('skyblue', 15)
-directionalLight2.position.set(-5,-2, 5)
+directionalLight2.position.set(-5, -2, 5)
 scene.add(directionalLight2)
 
 
 // SIZES
 const sizes = {
     width: 600,
-    height: 400
+    height: 400,
 }
 
 // CAMERA
@@ -109,7 +109,6 @@ const canvas = document.querySelector("canvas.webgl")
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
-    shadowMap: true
 })
 renderer.setSize(sizes.width, sizes.height)
 
@@ -179,12 +178,9 @@ fetch("https://api.coincap.io/v2/assets")
                 // BUILD MY COINS FROM DB.JSON
                 buildMyCoinsList()
 
-                const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
-                totalMarketCap = marketCapArray.reduce((a, b) => a + b)
-                const marketCapHeader = document.getElementById('market-cap')
-                marketCapHeader.innerText = `The top 100 cryptocurrencies are worth this much: ${roundToTwoDecimalPlace(totalMarketCap)}`
+                calculateMarketCap(coinDataArray)
 
-                
+
             })
         } else {
             // maybe get this error to say something more specific to error
@@ -223,11 +219,11 @@ function populateCoinList(cryptocurrency) {
 // ADDING COINS AGAIN THROUGH ADD COIN TO LIST FUNCTION 
 function buildMyCoinsList() {
     fetch("http://localhost:3000/data")
-    .then((response) => response.json())
-    .then(myCoinsList => {
-        myCoinsList.forEach(refreshCoinList)
-    })
-    .catch((error) => alert(`${error}`))
+        .then((response) => response.json())
+        .then(myCoinsList => {
+            myCoinsList.forEach(refreshCoinList)
+        })
+        .catch((error) => alert(`${error}`))
 }
 
 // rounds crypto prices
@@ -238,7 +234,7 @@ function roundToTwoDecimalPlace(number) {
 // creates list of coins
 function createCoinData(cryptocurrenciesArray) {
 
-    coinList.innerHTML= ""
+    coinList.innerHTML = ""
 
     if (coinFilter.value == "all-coins") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
@@ -262,8 +258,8 @@ function createCoinData(cryptocurrenciesArray) {
                 populateCoinList(cryptocurrency)
             }
         })
-    } 
-    
+    }
+
 }
 
 function displayCoinData(cryptocurrency) {
@@ -308,7 +304,7 @@ trackCoinButton.addEventListener("click", () => {
 })
 
 // refresh coin list from db.json without re adding to db.json
-function refreshCoinList (cryptocurrency) {
+function refreshCoinList(cryptocurrency) {
     // filter to see if cc is already on list
     const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement('div')
@@ -371,7 +367,7 @@ function addCoinToList(cryptocurrency) {
     newCard.addEventListener("mouseleave", () => {
         newCard.id = ""
     })
-    
+
     const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
 
     // array of coin symbols in My Coins list
@@ -395,21 +391,21 @@ function addCoinToList(cryptocurrency) {
 
 
 // POST COIN TO DB
-function postCoinToDB (cryptocurrency) {
+function postCoinToDB(cryptocurrency) {
 
     const cryptocurrencyData = {
-      id: cryptocurrency.id,
-      rank: cryptocurrency.rank,
-      symbol: cryptocurrency.symbol,
-      name: cryptocurrency.name,
-      supply: cryptocurrency.supply,
-      maxSupply: cryptocurrency.maxSupply,
-      marketCapUsd: cryptocurrency.marketCapUsd,
-      volumeUsd24Hr: cryptocurrency.volumeUsd24Hr,
-      priceUsd: cryptocurrency.priceUsd,
-      changePercent24Hr: cryptocurrency.changePercent24Hr,
-      vwap24Hr: cryptocurrency.vwap24Hr,
-      explorer: cryptocurrency.explorer
+        id: cryptocurrency.id,
+        rank: cryptocurrency.rank,
+        symbol: cryptocurrency.symbol,
+        name: cryptocurrency.name,
+        supply: cryptocurrency.supply,
+        maxSupply: cryptocurrency.maxSupply,
+        marketCapUsd: cryptocurrency.marketCapUsd,
+        volumeUsd24Hr: cryptocurrency.volumeUsd24Hr,
+        priceUsd: cryptocurrency.priceUsd,
+        changePercent24Hr: cryptocurrency.changePercent24Hr,
+        vwap24Hr: cryptocurrency.vwap24Hr,
+        explorer: cryptocurrency.explorer
     }
 
     const configurationObject = {
@@ -423,28 +419,37 @@ function postCoinToDB (cryptocurrency) {
 
     // post request
     fetch("http://localhost:3000/data", configurationObject)
-    .then(response => response.json())
-    .then(newCoinData => {
-        coinDb.push(newCoinData)
-    })
+        .then(response => response.json())
+        .then(newCoinData => {
+            coinDb.push(newCoinData)
+        })
 }
 
 // DELETE
-function deleteCoinFromDB (cryptocurrency) {
+function deleteCoinFromDB(cryptocurrency) {
     fetch(`http://localhost:3000/data/${cryptocurrency.id}`, {
         method: "DELETE"
     })
-    .then(response => response.json())
-    .then(deletedCoinData => {
-        coinDb = coinDb.filter(crypto => {
-            // only returns database elements that dont match the id of the delted coin
-            return deletedCoinData.id !== crypto.id;
-            
+        .then(response => response.json())
+        .then(deletedCoinData => {
+            coinDb = coinDb.filter(crypto => {
+                // only returns database elements that dont match the id of the delted coin
+                return deletedCoinData.id !== crypto.id;
+
+            })
         })
-    })
 }
 
-function calculateMarketCapTop100(coinDataArray) {
-    console.log(coinDataArray)
+
+function calculateMarketCap() {
+    const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
+    totalMarketCap = marketCapArray.reduce((a, b) => a + b)
+    const marketCapHeader = document.getElementById('market-cap')
+    marketCapHeader.innerText = `The top 100 Market Cap: $${roundToTwoDecimalPlace(totalMarketCap)}`
 }
-calculateMarketCapTop100()
+
+function onResize() {
+    console.log("resized!")
+}
+
+window.addEventListener('resize', onResize)
