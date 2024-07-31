@@ -1,18 +1,3 @@
 {
-  "data": [
-    {
-      "id": "tron",
-      "rank": "10",
-      "symbol": "TRX",
-      "name": "TRON",
-      "supply": "87040748792.3628700000000000",
-      "maxSupply": null,
-      "marketCapUsd": "11281701889.8435688979228965",
-      "volumeUsd24Hr": "117367257.1994404681773162",
-      "priceUsd": "0.1296140261471814",
-      "changePercent24Hr": "-2.4794002790098901",
-      "vwap24Hr": "0.1316039396421074",
-      "explorer": "https://tronscan.org/#/"
-    }
-  ]
+  "data": []
 }

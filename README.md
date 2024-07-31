@@ -1,10 +1,8 @@
 # CryptoCube
 
-CryptoCube recieves data on the top 100 cryptocurrencies from the CoinCap API. It then displays the data for each coin. 
+CryptoCube recieves data on the top 100 cryptocurrencies from the CoinCap API. It then displays the data for each coin and maps the data to "The CryptoCube," a 3D representation of each cryptocurrency's 24 hour price change.
 
-The CrptoCube has API data mapped to a 3D animation. When the cryptocurrency that is selected is going up in price over the last 24 hours, the cube will be green and rotating counter-clockwise. If it is going down in price, it will be red and rotating clockwise. The speed of the rotation reflects how quickly the price is changing. 
-
-Use the "TRACK COIN" button in "COIN DATA" to create a list of favorite coins that you can refer back to. 
+When the selected cryptocurrency has gone up in price over the last 24 hours, the cube will be green and rotating to the right. If the price has gone down, it will be red and rotating to the left. The speed of the rotation reflects how quickly the price is changing. 
 
 # INSTRUCTIONS
 
@@ -12,9 +10,21 @@ Use the "TRACK COIN" button in "COIN DATA" to create a list of favorite coins th
 $ npm install
 
 ## Set up json-server
-first time - npm install -g json-server
+first time -  <br />
+$ npm install -g json-server
 
-all other times - json-server --watch db.json
+all other times -  <br />
+$ json-server --watch db.json
 
 ## Run site using vite
-npm run dev
+$ npm run dev
+
+# How To Use CryptoCube
+
+Filter a list of the top 100 cryptocurrencies using the dropdown under "CHOOSE COIN."
+
+Select a coin from the list to display its data in the "COIN DATA" section. 
+
+If you would like to refer back to the coin, click the "TRACK COIN" button to add it to "MY COINS"
+
+Click on your saved coins to view their data, or click "REMOVE" to remove them from your list"

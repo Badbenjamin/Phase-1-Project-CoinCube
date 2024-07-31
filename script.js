@@ -61,7 +61,7 @@ function loadText() {
 
 // CUBE
 const geometry = new THREE.BoxGeometry(1.4, 1.4, 1.4);
-const material = new THREE.MeshPhongMaterial({ color: "white", shininess: 10 })
+const material = new THREE.MeshPhongMaterial({ color: "red", shininess: 10 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
@@ -138,35 +138,33 @@ const coinDropdown = document.getElementById("dropdown-content")
 const trackCoinButton = document.getElementById('track-coin-button')
 const myCoinCardList = document.getElementById("cards-go-here")
 let currentlyDisplayedCrypto;
-// GLOBAL API STORAGE (any advantage to storing array here?)
+// GLOBAL API STORAGE
 let coinDataArray = [];
 let totalMarketCap;
 
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
-        console.log(response)
         if (response.ok) {
             response.json().then(coinData => {
                 coinDataArray = [...coinData.data]
-                createCoinData(coinDataArray)
+                createCoinList(coinDataArray)
                 displayCoinData(coinDataArray[0])
                 buildMyCoinsList()
                 calculateMarketCap(coinDataArray)
             })
         } else {
-            // maybe get this error to say something more specific to error
             alert(`ERROR:${response.status}`)
         }
     })
 
 // FILTER EVENT LISTENER
 coinDropdown.addEventListener("change", () => {
-    createCoinData(coinDataArray)
+    createCoinList(coinDataArray)
 })
 
 // FUNCTIONS
-function populateCoinList(cryptocurrency) {
+function createCoinListItem(cryptocurrency) {
     const coinListItem = document.createElement('li')
     coinListItem.textContent = `${cryptocurrency.symbol}: ${cryptocurrency.name}`
     coinList.appendChild(coinListItem)
@@ -184,56 +182,44 @@ function populateCoinList(cryptocurrency) {
 
 }
 
-// can this be one function?
-function buildMyCoinsList() {
-    fetch("http://localhost:3000/data")
-        .then((response) => response.json())
-        .then(myCoinsList => {
-            myCoinsList.forEach(refreshCoinListFromDB)
-        })
-        .catch((error) => alert(`${error}`))
-}
-
 function roundAndFormatNumber(number) {
     return new Intl.NumberFormat().format(Math.round(number * 10 ** 2) / 10 ** 2);
 }
 
-// creates list of coins
-function createCoinData(cryptocurrenciesArray) {
+function createCoinList(cryptocurrenciesArray) {
 
     coinList.innerHTML = ""
 
     if (coinDropdown.value == "all-coins") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
-            populateCoinList(cryptocurrency)
+            createCoinListItem(cryptocurrency)
         })
     } else if (coinDropdown.value == "top-ten") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) <= 10)) {
-                populateCoinList(cryptocurrency)
+                createCoinListItem(cryptocurrency)
             }
         })
     } else if (coinDropdown.value == "1-50") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) <= 50)) {
-                populateCoinList(cryptocurrency)
+                createCoinListItem(cryptocurrency)
             }
         })
     } else if (coinDropdown.value == "50-100") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) > 50)) {
-                populateCoinList(cryptocurrency)
+                createCoinListItem(cryptocurrency)
             }
         })
     } else if (coinDropdown.value == "A-Z") {
         const nameArray = cryptocurrenciesArray.map((cryptocurrency) => cryptocurrency.name)
         const aToZObject = nameArray.toSorted()
-        console.log(cryptocurrenciesArray[0].name)
         for (let name of aToZObject) {
             let aToZName = name
             for (let cryptocurrency of cryptocurrenciesArray){
                 if (aToZName == cryptocurrency.name) {
-                    populateCoinList(cryptocurrency)
+                    createCoinListItem(cryptocurrency)
                 }
             }
         }
@@ -245,7 +231,7 @@ function createCoinData(cryptocurrenciesArray) {
             let zToAName = name
             for (let cryptocurrency of cryptocurrenciesArray){
                 if (zToAName == cryptocurrency.name) {
-                    populateCoinList(cryptocurrency)
+                    createCoinListItem(cryptocurrency)
                 }
             }
         }
@@ -288,10 +274,18 @@ function displayCoinData(cryptocurrency) {
 }
 
 // TRACK COIN 
+trackCoinButton.addEventListener("click", () => {addCoinToMyCoinsList(currentlyDisplayedCrypto)})
 
-trackCoinButton.addEventListener("click", () => {addCoinToList(currentlyDisplayedCrypto)})
+function buildMyCoinsList() {
+    fetch("http://localhost:3000/data")
+        .then((response) => response.json())
+        .then(myCoinsList => {
+            myCoinsList.forEach(refreshCoinListFromDB)
+        })
+        .catch((error) => alert(`${error}`))
+}
 
-function addCoinToList(cryptocurrency) {
+function addCoinToMyCoinsList(cryptocurrency) {
 
     const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement("div")
