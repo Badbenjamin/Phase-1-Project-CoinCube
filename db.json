@@ -1,32 +1,32 @@
 {
   "data": [
     {
-      "id": "bitcoin",
-      "rank": "1",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "supply": "19733778.0000000000000000",
-      "maxSupply": "21000000.0000000000000000",
-      "marketCapUsd": "1311771366195.8668643147733612",
-      "volumeUsd24Hr": "9212882180.2594771995630236",
-      "priceUsd": "66473.4024167023093254",
-      "changePercent24Hr": "0.6942769144093486",
-      "vwap24Hr": "66128.2594064370435565",
-      "explorer": "https://blockchain.info/"
+      "id": "unus-sed-leo",
+      "rank": "20",
+      "symbol": "LEO",
+      "name": "UNUS SED LEO",
+      "supply": "925853339.9000000000000000",
+      "maxSupply": null,
+      "marketCapUsd": "5253398094.9187523812788984",
+      "volumeUsd24Hr": "3539336.0476797719143520",
+      "priceUsd": "5.6741147528680556",
+      "changePercent24Hr": "0.1299582995404077",
+      "vwap24Hr": "5.6983358388395252",
+      "explorer": "https://eospark.com/account/bitfinexleo1"
     },
     {
-      "id": "wrapped-bitcoin",
-      "rank": "12",
-      "symbol": "WBTC",
-      "name": "Wrapped Bitcoin",
-      "supply": "154782.1938814600000000",
-      "maxSupply": null,
-      "marketCapUsd": "10296509222.4191136742564261",
-      "volumeUsd24Hr": "7431545.7439118022296614",
-      "priceUsd": "66522.5693228298536832",
-      "changePercent24Hr": "0.5915987061527060",
-      "vwap24Hr": "66192.3074617225974370",
-      "explorer": "https://etherscan.io/token/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+      "id": "bitcoin-cash",
+      "rank": "14",
+      "symbol": "BCH",
+      "name": "Bitcoin Cash",
+      "supply": "19740715.6250000000000000",
+      "maxSupply": "21000000.0000000000000000",
+      "marketCapUsd": "8417354330.5465438963200416",
+      "volumeUsd24Hr": "116953847.8472793086432740",
+      "priceUsd": "426.3956023907590177",
+      "changePercent24Hr": "-2.3995740681926538",
+      "vwap24Hr": "430.0706252852382449",
+      "explorer": "https://blockchair.com/bitcoin-cash/blocks"
     }
   ]
 }

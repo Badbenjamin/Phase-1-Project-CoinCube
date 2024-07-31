@@ -74,8 +74,6 @@ scene.add(planeMesh)
 // TRANSFORMS
 mesh.position.y = 0.2;
 planeMesh.position.z = -3
-// mesh.rotation.x = Math.PI * 0.25
-// mesh.rotation.y = Math.PI * 0.25
 
 // LIGHTS
 const directionalLight1 = new THREE.DirectionalLight('seashell', 20)
@@ -100,11 +98,9 @@ const sizes = {
 }
 
 // CAMERA
-
 const camera = new THREE.PerspectiveCamera(20, sizes.width / sizes.height)
 camera.position.z = 8
 scene.add(camera)
-
 
 // CANVAS
 const canvas = document.querySelector("canvas.webgl")
@@ -120,7 +116,6 @@ renderer.setSize(sizes.width, sizes.height)
 const clock = new THREE.Clock()
 
 // ANIMATOR FUNCTION
-
 const animate = () => {
     // Elapsed Time
     const elapsedTime = clock.getElapsedTime();
@@ -128,11 +123,6 @@ const animate = () => {
     // Update objects
     mesh.rotation.y = elapsedTime * cubeSpinMultiplier;
     mesh.rotation.x = (Math.sin)(elapsedTime) / 5;
-
-    // CAMERA MOVEMENT
-    // camera.position.x = Math.sin(elapsedTime) / 2
-    // camera.position.y = Math.sin(elapsedTime) / 2
-    // camera.lookAt(mesh.position)
 
     // Render
     renderer.render(scene, camera)
@@ -142,69 +132,45 @@ const animate = () => {
 }
 animate()
 
-// WEBSITE FUNCTIONALITY
-
-// Choose coin. Filtered list of coins appears here
+// GLOBAL VARIABLES FOR WEBSITE
 const coinList = document.getElementById("coin-list")
-
-// Select Element
-const coinFilter = document.getElementById("dropdown-content")
-
-// TRACK COIN BUTTON
+const coinDropdown = document.getElementById("dropdown-content")
 const trackCoinButton = document.getElementById('track-coin-button')
-
-// TRACK COINS COIN CARD
 const myCoinCardList = document.getElementById("cards-go-here")
-
-// DISPLAYED CRYPTO variable, 
-let displayedCrypto;
-
+let currentlyDisplayedCrypto;
 // GLOBAL API STORAGE (any advantage to storing array here?)
 let coinDataArray = [];
-
-// mirrored database
-let coinDb = [];
-
-// marketcap total
 let totalMarketCap;
 
 // API call to get coin data
 fetch("https://api.coincap.io/v2/assets")
     .then(response => {
+        console.log(response)
         if (response.ok) {
             response.json().then(coinData => {
-                // CREATE GLOBAL ARRAY FOR STORAGE
                 coinDataArray = [...coinData.data]
-                // console.log(coinData.data)
                 createCoinData(coinDataArray)
-                // Display bitcoin as default
                 displayCoinData(coinDataArray[0])
-                // BUILD MY COINS FROM DB.JSON
                 buildMyCoinsList()
-
                 calculateMarketCap(coinDataArray)
-
-
             })
         } else {
             // maybe get this error to say something more specific to error
-            alert("ERROR")
+            alert(`ERROR:${response.status}`)
         }
     })
 
 // FILTER EVENT LISTENER
-coinFilter.addEventListener("change", () => {
+coinDropdown.addEventListener("change", () => {
     createCoinData(coinDataArray)
 })
 
-
+// FUNCTIONS
 function populateCoinList(cryptocurrency) {
     const coinListItem = document.createElement('li')
     coinListItem.textContent = `${cryptocurrency.symbol}: ${cryptocurrency.name}`
     coinList.appendChild(coinListItem)
 
-
-    // Hover to change color of coinListItem
     coinListItem.addEventListener("mouseover", () => {
         coinListItem.id = 'change-color'
     })
@@ -212,25 +178,22 @@ function populateCoinList(cryptocurrency) {
         coinListItem.id = ""
     })
 
-    // Click to add to MY COINS and DISPLAY COIN DATA
     coinListItem.addEventListener("click", () => {
         displayCoinData(cryptocurrency)
     })
 
 }
 
-// build My Coins list from db. LEFT OFF HERE. KEEPS DOUBLING LIST ON REFRESH
-// ADDING COINS AGAIN THROUGH ADD COIN TO LIST FUNCTION 
+// can this be one function?
 function buildMyCoinsList() {
     fetch("http://localhost:3000/data")
         .then((response) => response.json())
         .then(myCoinsList => {
-            myCoinsList.forEach(refreshCoinList)
+            myCoinsList.forEach(refreshCoinListFromDB)
         })
         .catch((error) => alert(`${error}`))
 }
 
-// rounds crypto prices
 function roundAndFormatNumber(number) {
     return new Intl.NumberFormat().format(Math.round(number * 10 ** 2) / 10 ** 2);
 }
@@ -240,29 +203,29 @@ function createCoinData(cryptocurrenciesArray) {
 
     coinList.innerHTML = ""
 
-    if (coinFilter.value == "all-coins") {
+    if (coinDropdown.value == "all-coins") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             populateCoinList(cryptocurrency)
         })
-    } else if (coinFilter.value == "top-ten") {
+    } else if (coinDropdown.value == "top-ten") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) <= 10)) {
                 populateCoinList(cryptocurrency)
             }
         })
-    } else if (coinFilter.value == "1-50") {
+    } else if (coinDropdown.value == "1-50") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) <= 50)) {
                 populateCoinList(cryptocurrency)
             }
         })
-    } else if (coinFilter.value == "50-100") {
+    } else if (coinDropdown.value == "50-100") {
         cryptocurrenciesArray.forEach((cryptocurrency) => {
             if ((Number(cryptocurrency.rank) > 50)) {
                 populateCoinList(cryptocurrency)
             }
         })
-    } else if (coinFilter.value == "A-Z") {
+    } else if (coinDropdown.value == "A-Z") {
         const nameArray = cryptocurrenciesArray.map((cryptocurrency) => cryptocurrency.name)
         const aToZObject = nameArray.toSorted()
         console.log(cryptocurrenciesArray[0].name)
@@ -274,7 +237,7 @@ function createCoinData(cryptocurrenciesArray) {
                 }
             }
         }
-    } else if (coinFilter.value == "Z-A") {
+    } else if (coinDropdown.value == "Z-A") {
         const nameArray = cryptocurrenciesArray.map((cryptocurrency) => cryptocurrency.name)
         const aToZObject = nameArray.toSorted()
         const zToAObject = aToZObject.toReversed();
@@ -287,7 +250,6 @@ function createCoinData(cryptocurrenciesArray) {
             }
         }
     } 
-        
 }
 
 function displayCoinData(cryptocurrency) {
@@ -322,85 +284,22 @@ function displayCoinData(cryptocurrency) {
     threeDTextContent = cryptocurrency.symbol
     scene.remove(text)
     loadText()
-    displayedCrypto = cryptocurrency;
+    currentlyDisplayedCrypto = cryptocurrency;
 }
 
 // TRACK COIN 
 
-trackCoinButton.addEventListener("click", () => {
-    addCoinToList(displayedCrypto)
-})
+trackCoinButton.addEventListener("click", () => {addCoinToList(currentlyDisplayedCrypto)})
 
-// refresh coin list from db.json without re adding to db.json
-function refreshCoinList(cryptocurrency) {
-    // filter to see if cc is already on list
-    const coinCards = document.getElementsByClassName("tracked-coin-card")
-    const newCard = document.createElement('div')
-    newCard.class = "tracked-coin-card";
-
-    newCard.innerHTML =
-        `<div class="tracked-coin-card" >
-            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
-            <h4 class="tracked-coin-price">$${roundAndFormatNumber(cryptocurrency.priceUsd)}</h4>
-            <button class="remove-button">REMOVE</button>
-        </div >`
-    const removeButton = newCard.querySelector('.remove-button')
-    // removeButton.class = "button"
-    removeButton.addEventListener("click", () => {
-        newCard.remove()
-        deleteCoinFromDB(cryptocurrency)
-    })
-
-    newCard.addEventListener("click", () => {
-        displayCoinData(cryptocurrency)
-    })
-
-    newCard.addEventListener("mouseenter", () => {
-        newCard.id = "enter-new-card"
-    })
-
-    newCard.addEventListener("mouseleave", () => {
-        newCard.id = ""
-    })
-
-    myCoinCardList.appendChild(newCard)
-
-}
-
-// add to tracked coin list
 function addCoinToList(cryptocurrency) {
 
-    // filter to see if cc is already on list
     const coinCards = document.getElementsByClassName("tracked-coin-card")
     const newCard = document.createElement("div")
 
-    newCard.innerHTML =
-        `<div class="tracked-coin-card" >
-            <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
-            <h4 class="tracked-coin-price">$${roundAndFormatNumber(cryptocurrency.priceUsd)}</h4>
-            <button class="remove-button">REMOVE</button>
-        </div >`
-    const removeButton = newCard.querySelector('.remove-button')
-    removeButton.addEventListener("click", () => {
-        newCard.remove()
-        deleteCoinFromDB(cryptocurrency)
-    })
+    newCardBuilder(cryptocurrency, newCard)
 
-    newCard.addEventListener("click", () => {
-        displayCoinData(cryptocurrency)
-    })
-
-    newCard.addEventListener("mouseenter", () => {
-        newCard.id = "enter-new-card"
-    })
-
-    newCard.addEventListener("mouseleave", () => {
-        newCard.id = ""
-    })
-
+    // CHECK TO SEE IF NEWCARD CRYPTO IS ALREADY IN MY COINS LIST
     const newCardSymbol = newCard.getElementsByClassName("tracked-coin-symbol")
-
-    // array of coin symbols in My Coins list
     let currentCoinSymbols = [];
 
     for (let htmlContent of coinCards) {
@@ -410,7 +309,6 @@ function addCoinToList(cryptocurrency) {
         }
     }
 
-    // if find method locates a match in the list the "!" operator makes the statement falsey
     if (!currentCoinSymbols.find((element) => element == newCardSymbol[0].innerHTML)) {
         myCoinCardList.appendChild(newCard)
         postCoinToDB(cryptocurrency);
@@ -419,8 +317,32 @@ function addCoinToList(cryptocurrency) {
     }
 }
 
+function refreshCoinListFromDB(cryptocurrency) {
+    const newCard = document.createElement('div')
+    newCardBuilder(cryptocurrency, newCard)
+    myCoinCardList.appendChild(newCard)
+}
 
-// POST COIN TO DB
+function newCardBuilder(cryptocurrency, newCard){
+    newCard.innerHTML =
+    `<div class="tracked-coin-card" >
+        <h4 class="tracked-coin-symbol" >${cryptocurrency.symbol}</h4>
+        <h4 class="tracked-coin-price">$${roundAndFormatNumber(cryptocurrency.priceUsd)}</h4>
+        <button class="remove-button">REMOVE</button>
+    </div >`
+
+const removeButton = newCard.querySelector('.remove-button')
+
+removeButton.addEventListener("click", () => {
+    newCard.remove()
+    deleteCoinFromDB(cryptocurrency)
+    })
+
+newCard.addEventListener("click", () => {displayCoinData(cryptocurrency)})
+newCard.addEventListener("mouseenter", () => {newCard.id = "enter-new-card"})
+newCard.addEventListener("mouseleave", () => {newCard.id = ""})
+}
+
 function postCoinToDB(cryptocurrency) {
 
     const cryptocurrencyData = {
@@ -447,29 +369,18 @@ function postCoinToDB(cryptocurrency) {
         body: JSON.stringify(cryptocurrencyData),
     };
 
-    // post request
     fetch("http://localhost:3000/data", configurationObject)
         .then(response => response.json())
-        .then(newCoinData => {
-            coinDb.push(newCoinData)
-        })
+        .catch(error => alert(error))
 }
 
-// DELETE
 function deleteCoinFromDB(cryptocurrency) {
     fetch(`http://localhost:3000/data/${cryptocurrency.id}`, {
         method: "DELETE"
     })
         .then(response => response.json())
-        .then(deletedCoinData => {
-            coinDb = coinDb.filter(crypto => {
-                // only returns database elements that dont match the id of the delted coin
-                return deletedCoinData.id !== crypto.id;
-
-            })
-        })
+        .catch(error => alert(error))
 }
-
 
 function calculateMarketCap() {
     const marketCapArray = coinDataArray.map((coin) => Number(coin.marketCapUsd))
