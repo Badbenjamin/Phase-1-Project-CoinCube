@@ -335,12 +335,12 @@ const removeButton = newCard.querySelector('.remove-button')
 
 removeButton.addEventListener("click", () => {
     newCard.remove()
-    deleteCoinFromDB(cryptocurrency)
+        deleteCoinFromDB(cryptocurrency)
     })
 
-newCard.addEventListener("click", () => {displayCoinData(cryptocurrency)})
-newCard.addEventListener("mouseenter", () => {newCard.id = "enter-new-card"})
-newCard.addEventListener("mouseleave", () => {newCard.id = ""})
+    newCard.addEventListener("click", () => {displayCoinData(cryptocurrency)})
+    newCard.addEventListener("mouseenter", () => {newCard.id = "enter-new-card"})
+    newCard.addEventListener("mouseleave", () => {newCard.id = ""})
 }
 
 function postCoinToDB(cryptocurrency) {
