@@ -86,11 +86,7 @@ const directionalLight2 = new THREE.DirectionalLight('skyblue', 15)
 directionalLight2.position.set(-5, -2, 5)
 scene.add(directionalLight2)
 
-
-// SIZES
-const middleDiv = document.querySelector('.middle')
-console.log(middleDiv)
-
+// 3D canvas aspect ratio
 const sizes = {
     
     width: window.innerWidth * .6,
@@ -117,17 +113,14 @@ const clock = new THREE.Clock()
 
 // ANIMATOR FUNCTION
 const animate = () => {
-    // Elapsed Time
     const elapsedTime = clock.getElapsedTime();
 
     // Update objects
     mesh.rotation.y = elapsedTime * cubeSpinMultiplier;
     mesh.rotation.x = (Math.sin)(elapsedTime) / 5;
 
-    // Render
     renderer.render(scene, camera)
 
-    // Call animate on next frame
     window.requestAnimationFrame(animate)
 }
 animate()
@@ -138,7 +131,6 @@ const coinDropdown = document.getElementById("dropdown-content")
 const trackCoinButton = document.getElementById('track-coin-button')
 const myCoinCardList = document.getElementById("cards-go-here")
 let currentlyDisplayedCrypto;
-// GLOBAL API STORAGE
 let coinDataArray = [];
 let totalMarketCap;
 
@@ -239,7 +231,7 @@ function createCoinList(cryptocurrenciesArray) {
 }
 
 function displayCoinData(cryptocurrency) {
-    // console.log(cryptocurrency)
+   
     const cryptoName = document.getElementById('name')
     const cryptoSymbol = document.getElementById('symbol')
     const cryptoPrice = document.getElementById('price')
@@ -276,15 +268,6 @@ function displayCoinData(cryptocurrency) {
 // TRACK COIN 
 trackCoinButton.addEventListener("click", () => {addCoinToMyCoinsList(currentlyDisplayedCrypto)})
 
-function buildMyCoinsList() {
-    fetch("http://localhost:3000/data")
-        .then((response) => response.json())
-        .then(myCoinsList => {
-            myCoinsList.forEach(refreshCoinListFromDB)
-        })
-        .catch((error) => alert(`${error}`))
-}
-
 function addCoinToMyCoinsList(cryptocurrency) {
 
     const coinCards = document.getElementsByClassName("tracked-coin-card")
@@ -305,16 +288,9 @@ function addCoinToMyCoinsList(cryptocurrency) {
 
     if (!currentCoinSymbols.find((element) => element == newCardSymbol[0].innerHTML)) {
         myCoinCardList.appendChild(newCard)
-        postCoinToDB(cryptocurrency);
     } else {
         alert(`Error: ${newCardSymbol[0].innerHTML} is already in your list`)
     }
-}
-
-function refreshCoinListFromDB(cryptocurrency) {
-    const newCard = document.createElement('div')
-    newCardBuilder(cryptocurrency, newCard)
-    myCoinCardList.appendChild(newCard)
 }
 
 function newCardBuilder(cryptocurrency, newCard){
@@ -329,49 +305,9 @@ const removeButton = newCard.querySelector('.remove-button')
 
 removeButton.addEventListener("click", () => {
     newCard.remove()
-        deleteCoinFromDB(cryptocurrency)
     })
 
     newCard.addEventListener("click", () => {displayCoinData(cryptocurrency)})
-}
-
-function postCoinToDB(cryptocurrency) {
-
-    const cryptocurrencyData = {
-        id: cryptocurrency.id,
-        rank: cryptocurrency.rank,
-        symbol: cryptocurrency.symbol,
-        name: cryptocurrency.name,
-        supply: cryptocurrency.supply,
-        maxSupply: cryptocurrency.maxSupply,
-        marketCapUsd: cryptocurrency.marketCapUsd,
-        volumeUsd24Hr: cryptocurrency.volumeUsd24Hr,
-        priceUsd: cryptocurrency.priceUsd,
-        changePercent24Hr: cryptocurrency.changePercent24Hr,
-        vwap24Hr: cryptocurrency.vwap24Hr,
-        explorer: cryptocurrency.explorer
-    }
-
-    const configurationObject = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(cryptocurrencyData),
-    };
-
-    fetch("http://localhost:3000/data", configurationObject)
-        .then(response => response.json())
-        .catch(error => alert(error))
-}
-
-function deleteCoinFromDB(cryptocurrency) {
-    fetch(`http://localhost:3000/data/${cryptocurrency.id}`, {
-        method: "DELETE"
-    })
-        .then(response => response.json())
-        .catch(error => alert(error))
 }
 
 function calculateMarketCap() {
