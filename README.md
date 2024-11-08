@@ -1,6 +1,6 @@
 # CryptoCube
 
-CryptoCube receives data on the top 100 cryptocurrencies from the CoinCap API. It then displays the data for each coin and maps the data to "The CryptoCube," a 3D representation of each cryptocurrency's 24 hour price change.
+CryptoCube receives data on the top 100 cryptocurrencies from the CoinCap API. It then displays the data for each coin and maps it to "The CryptoCube," a 3D representation of each cryptocurrency's 24 hour price change.
 
 When the selected cryptocurrency has gone up in price over the last 24 hours, the cube will be green and rotating to the right. If the price has gone down, it will be red and rotating to the left. The speed of the rotation reflects how quickly the price is changing. 
 
@@ -8,13 +8,6 @@ When the selected cryptocurrency has gone up in price over the last 24 hours, th
 
 ## Installation
 $ npm install
-
-## Set up json-server
-first time -  <br />
-$ npm install -g json-server
-
-all other times -  <br />
-$ json-server --watch db.json
 
 ## Launch site using vite
 $ npm run dev
