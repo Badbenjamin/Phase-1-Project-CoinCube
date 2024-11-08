@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoCube</title>
+  <script type="module" crossorigin src="/assets/index-CG-7DgLb.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Bgze-ngd.css">
+</head>
+
+<body>
+    <h1 id="main-header">CryptoCube</h1>
+    <div class="left">
+        <h2>CHOOSE COIN</h2>
+        <select id="dropdown-content">
+            <option value="all-coins">ALL COINS BY RANK</option>
+            <option value="top-ten">TOP 10 COINS</option>
+            <option value="1-50">TOP 50 COINS</option>
+            <option value="50-100">BOTTOM 50 COINS</option>
+            <option value="A-Z">COINS A to Z</option>
+            <option value="Z-A">COINS Z to A</option>
+        </select>
+
+        <br />
+
+        <ul id="coin-list">
+            <!-- list coins here -->
+        </ul>
+    </div>
+    <div class="middle">
+        <h2 id="market-cap">HEADER 2</h2>
+        <canvas class="webgl"></canvas>
+        <div id="coin-data">
+            <h2 id="coin-data-title">COIN DATA</h2>
+            <h3 class="data" id="name">NAME</h3>
+            <h3 class="data" id="symbol">SYMBOL</h3>
+            <h3 class="data" id="price">PRICE</h3>
+            <h3 class="data" id="24-hour-change">24HR CHANGE</h3>
+            <!-- <h3 class="data" id="price yesterday">PRICE YESTERDAY</h3> -->
+            <button id="track-coin-button">TRACK COIN</button>
+        </div>
+    </div>
+    <div class="right">
+        <h2 id="my-coins-list">MY COINS</h2>
+        <div id="cards-go-here">
+        </div>
+    </div>
+</body>
+
+</html>
